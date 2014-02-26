@@ -1,0 +1,14 @@
+happy:
+  path: 'happy/forms'
+  defaults:
+    _content: '\Drupal\happy_forms\HappyFormsController::Index'
+  requirements:
+    _access: 'TRUE'
+
+happy_add:
+  path: 'happy/forms/add'
+  defaults:
+    _title: 'Happy form'
+    _form: '\Drupal\happy_forms\HappyFormsAddForm'
+  requirements:
+    _access: 'TRUE'
