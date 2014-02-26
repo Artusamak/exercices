@@ -5,10 +5,25 @@ happy:
   requirements:
     _access: 'TRUE'
 
+happy_list:
+  path: 'happy/forms/list'
+  defaults:
+    _content: '\Drupal\happy_forms\HappyFormsController::HappyList'
+  requirements:
+    _access: 'TRUE'
+
 happy_add:
   path: 'happy/forms/add'
   defaults:
     _title: 'Happy form'
     _form: '\Drupal\happy_forms\HappyFormsAddForm'
+  requirements:
+    _access: 'TRUE'
+
+happy_edit:
+  path: 'happy/forms/edit/{id}'
+  defaults:
+    _title: 'Happy form'
+    _form: '\Drupal\happy_forms\HappyFormsEditForm'
   requirements:
     _access: 'TRUE'
