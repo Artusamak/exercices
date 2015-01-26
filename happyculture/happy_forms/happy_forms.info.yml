@@ -1,5 +1,5 @@
-name: Formations Happyculture D8
+name: 01 - Forms
 type: module
-description: 'todo.'
-package: Formation Happyculture
+description: "Demo the forms manipulation."
+package: Happyculture
 core: 8.x

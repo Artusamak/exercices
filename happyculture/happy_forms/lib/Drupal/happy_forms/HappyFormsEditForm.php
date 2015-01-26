@@ -6,6 +6,7 @@
 namespace Drupal\happy_forms;
 
 use Drupal\Core\Form\FormBase;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Implements an simple Add form.
@@ -22,7 +23,7 @@ class HappyFormsEditForm extends FormBase {
   /**
    * {@inheritdoc}.
    */
-  public function buildForm(array $form, array &$form_state, $id = '') {
+  public function buildForm(array $form, FormStateInterface $form_state, $id = '') {
     // Load the ID.
     $entries = HappyFormsStorage::load(array('id' => $id));
     $entry = array_pop($entries);
@@ -47,7 +48,7 @@ class HappyFormsEditForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function validateForm(array &$form, array &$form_state) {
+  public function validateForm(array &$form, FormStateInterface $form_state) {
     if (strlen($form_state['values']['phone_number']) < 3) {
       $this->setFormError('phone_number', $form_state, t('The phone number is too short. Please enter a full phone number.'));
     }
@@ -56,7 +57,7 @@ class HappyFormsEditForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function submitForm(array &$form, array &$form_state) {
+  public function submitForm(array &$form, FormStateInterface $form_state) {
     // Save the submitted entry.
     $entry = array(
       'id' => $form_state['values']['id'],

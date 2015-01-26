@@ -10,10 +10,6 @@ namespace Drupal\training_library\Controller;
 use Drupal\Core\Controller\ControllerBase;
 
 class DefaultController extends ControllerBase  {
-
-
-
-
   /**
    * Hello.
    *
