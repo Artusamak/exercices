@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * @file
+ * Contains training_library.module
+ */
+
+/**
+ * Implements hook_page_attachments_alter().
+ */
+function training_library_page_attachments_alter(array &$attachments) {
+  // Attach the library to all pages.
+  $attachments['#attached']['library'][] = 'training_library/local-favorite';
+}
