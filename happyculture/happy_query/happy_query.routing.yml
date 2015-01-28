@@ -4,13 +4,17 @@ happy_query.query:
     _controller: '\Drupal\happy_query\Controller\HappyQueryController::query'
     _title: 'Happy Query'
   requirements:
-    _permission: 'access content'
+    _permission: 'access_happy_library'
 
 happy_query.view_mode:
   # Pass an additional variable that will be available in our method.
-  path: happy/query/{mode}
+  path: happy/query/{viewmode}
   defaults:
     _controller: '\Drupal\happy_query\Controller\HappyQueryController::query_mode'
     _title: 'Happy Query by view mode'
   requirements:
-    _permission: 'access content'
+    _permission: 'access_happy_library'
+  options:
+    parameters:
+      viewmode:
+        type: entity:entity_view_mode

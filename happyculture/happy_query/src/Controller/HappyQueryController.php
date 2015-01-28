@@ -7,20 +7,35 @@
 
 namespace Drupal\happy_query\Controller;
 
+use Drupal\Core\Entity\EntityViewModeInterface;
 use Drupal\Core\Controller\ControllerBase;
-
+use Drupal\Component\Utility\String;
 
 /**
  * Returns responses for Happyquery module routes.
  */
 class HappyQueryController extends ControllerBase {
 
+  /**
+   * Number of element to get.
+   *
+   * @var \Drupal\Core\Form\FormBuilderInterface
+   */
+  public $formBuilder;
+
   public function query() {
+
+    $config = \Drupal::config('happy_forms.librarysettings');
+    $book_number = $config->get('book_number');
 
     // Query against our entities.
     $query = \Drupal::entityQuery('node')
       ->condition('status', 1)
       ->condition('changed', REQUEST_TIME, '<');
+
+    if (!is_null($book_number) && is_numeric($book_number)) {
+      $query->range(1, $book_number);
+    }
 
     $nids = $query->execute();
 
@@ -32,20 +47,28 @@ class HappyQueryController extends ControllerBase {
     return entity_view_multiple($nodes, 'teaser');
   }
 
-  public function query_mode($view_mode) {
+  public function query_mode(EntityViewModeInterface $viewmode) {
 
-    $storage = \Drupal::entityManager()->getStorage('node');
+    $config = \Drupal::config('happy_forms.librarysettings');
+    $book_number = $config->get('book_number');
 
     $query = \Drupal::entityQuery('node')
       ->condition('status', 1)
       ->condition('changed', REQUEST_TIME, '<');
 
+    if (!is_null($book_number) && is_numeric($book_number)) {
+      $query->range(1, $book_number);
+    }
+
     $nids = $query->execute();
 
+    $storage = \Drupal::entityManager()->getStorage('node');
     $nodes = $storage->loadMultiple($nids);
 
-    return entity_view_multiple($nodes, $view_mode);
-
+    list($entity_type, $viewmode_name) = explode('.', $viewmode->getOriginalId());
+    $build = entity_view_multiple($nodes, $viewmode_name);
+    $build['#title'] = \Drupal::translation()->translate('Happy Query by view mode: @label', array('@label' => $viewmode->label()));
+    return $build;
   }
 
 }
