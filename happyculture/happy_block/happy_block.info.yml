@@ -1,0 +1,5 @@
+name: 04 - block
+type: module
+description: Implements a block
+core: 8.x
+package: Happyculture
