@@ -44,7 +44,7 @@ class HappyQueryController extends ControllerBase {
     // Now we can load the entities.
     $nodes = $storage->loadMultiple($nids);
 
-    return entity_view_multiple($nodes, 'teaser');
+    return entity_view_multiple($nodes, 'list');
   }
 
   public function query_mode(EntityViewModeInterface $viewmode) {

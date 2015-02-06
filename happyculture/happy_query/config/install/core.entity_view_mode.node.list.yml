@@ -1,0 +1,8 @@
+id: node.list
+label: 'List'
+status: false
+cache: true
+targetEntityType: node
+dependencies:
+  module:
+    - node
