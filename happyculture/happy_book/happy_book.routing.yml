@@ -1,0 +1,49 @@
+# authorEntity routing definition
+entity.author_entity.canonical:
+  path: '/author_entity/{author_entity}'
+  defaults:
+    _entity_view: 'author_entity'
+    _title: 'AuthorEntity Content'
+  requirements:
+    _entity_access: 'author_entity.view'
+
+entity.author_entity.list:
+  path: '/admin/author_entity'
+  defaults:
+    _entity_list: 'author_entity'
+    _title: 'AuthorEntity List'
+  requirements:
+    _permission: 'view AuthorEntity entity'
+
+entity.author_entity.add_form:
+  path: '/admin/author_entity/add'
+  defaults:
+    _entity_form: author_entity.add
+    _title: 'Add AuthorEntity'
+  requirements:
+    _entity_create_access: 'author_entity'
+
+entity.author_entity.edit_form:
+  path: '/admin/author_entity/{author_entity}/edit'
+  defaults:
+    _entity_form: author_entity.edit
+    _title: 'Edit AuthorEntity'
+  requirements:
+    _entity_access: 'author_entity.edit'
+
+entity.author_entity.delete_form:
+  path: '/admin/author_entity/{author_entity}/delete'
+  defaults:
+    _entity_form: author_entity.delete
+    _title: 'Delete AuthorEntity'
+  requirements:
+    _entity_access: 'author_entity.delete'
+
+author_entity.settings:
+  path: 'admin/structure/author_entity'
+  defaults:
+   _form: '\Drupal\happy_book\Entity\Form\authorEntitySettingsForm'
+   _title: 'AuthorEntity Settings'
+  requirements:
+    _permission: 'administer AuthorEntity entity'
+

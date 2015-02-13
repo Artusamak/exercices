@@ -1,0 +1,12 @@
+# authorEntity menu items definition
+entity.author_entity.list:
+  title: 'AuthorEntity: Listing'
+  route_name: entity.author_entity.list
+  description: 'List AuthorEntity'
+
+author_entity.admin.structure.settings:
+  title: AuthorEntity Settings
+  description: 'Configure AuthorEntity entity'
+  route_name:  author_entity.settings
+  parent: system.admin_structure
+
