@@ -1,5 +1,5 @@
-name: Happy book
+name: 05 - Happy book entity
 type: module
 description: Module that implements a new author entity type.
 core: 8.x
-package: Other
+package: Happyculture

@@ -11,6 +11,16 @@ use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 
 class LibraryConfigurationForm extends ConfigFormBase {
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function getEditableConfigNames() {
+    return [
+      'happy_forms.librarysettings',
+    ];
+  }
+
   public function getFormId() {
     return 'library_configuration';
   }
@@ -27,7 +37,7 @@ class LibraryConfigurationForm extends ConfigFormBase {
   }
 
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $config = $this->config('happy_forms.librarysettings');
+    $config = \Drupal::configFactory()->getEditable('happy_forms.librarysettings');
     $config->set('book_number', $form_state->getValue('book_number'));
     $config->save();
     parent::submitForm($form, $form_state);
