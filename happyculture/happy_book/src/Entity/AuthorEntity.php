@@ -22,7 +22,7 @@ use Drupal\Core\Field\FieldStorageDefinitionInterface;
  *
  * @ContentEntityType(
  *   id = "author_entity",
- *   label = @Translation("AuthorEntity entity"),
+ *   label = @Translation("Author"),
  *   handlers = {
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
  *     "list_builder" = "Drupal\happy_book\Entity\Controller\authorEntityListController",
@@ -188,7 +188,8 @@ class AuthorEntity extends ContentEntityBase implements authorEntityInterface
           'placeholder' => '',
         ),
       ))
-      ->setDisplayConfigurable('form', TRUE);
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
 
     $fields['display_name'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Displayed name'))

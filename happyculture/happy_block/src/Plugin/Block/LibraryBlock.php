@@ -32,6 +32,7 @@ class LibraryBlock extends BlockBase {
       // Query against our entities.
       $query = \Drupal::entityQuery('node')
         ->condition('status', 1)
+        ->condition('type', 'happy_book')
         ->condition('changed', REQUEST_TIME, '<');
 
       $book_number = 2;

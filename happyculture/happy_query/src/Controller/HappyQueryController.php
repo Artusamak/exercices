@@ -31,6 +31,7 @@ class HappyQueryController extends ControllerBase {
     // Query against our entities.
     $query = \Drupal::entityQuery('node')
       ->condition('status', 1)
+      ->condition('type', 'happy_book')
       ->condition('changed', REQUEST_TIME, '<');
 
     if (!is_null($book_number) && is_numeric($book_number)) {
@@ -49,7 +50,7 @@ class HappyQueryController extends ControllerBase {
     }
     else {
       return array(
-        '#markup' => 'No result'
+        '#markup' => '<p>No result</p>'
       );
     }
   }
@@ -61,6 +62,7 @@ class HappyQueryController extends ControllerBase {
 
     $query = \Drupal::entityQuery('node')
       ->condition('status', 1)
+      ->condition('type', 'happy_book')
       ->condition('changed', REQUEST_TIME, '<');
 
     if (!is_null($book_number) && is_numeric($book_number)) {
@@ -80,7 +82,7 @@ class HappyQueryController extends ControllerBase {
       }
     else {
       return array(
-        '#markup' => 'No result'
+        '#markup' => '<p>No result</p>'
       );
     }
   }

@@ -22,9 +22,15 @@ use Drupal\Core\Render\Element;
 function template_preprocess_author_entity(&$variables) {
   // Fetch AuthorEntity Entity Object
   $author_entity = $variables['elements']['#author_entity'];
+  $label = $author_entity->getEntityType()->getKey('label');
 
   // Helpful $content variable for templates.
   foreach (Element::children($variables['elements']) as $key) {
-    $variables['content'][$key] = $variables['elements'][$key];
+    // Until issue like this one https://www.drupal.org/node/2316949 is fixed
+    // we have to hide manually the field we want to use as page title in the
+    // full view mode.
+    if ($key != $label) {
+      $variables['content'][$key] = $variables['elements'][$key];
+    }
   }
 }
