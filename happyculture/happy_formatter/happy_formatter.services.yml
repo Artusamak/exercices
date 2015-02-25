@@ -1,0 +1,3 @@
+services:
+  happy_formatter.get_cover_service:
+    class: Drupal\happy_formatter\Service\GetCoverService

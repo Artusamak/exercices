@@ -2,11 +2,13 @@
 
 namespace Drupal\happy_formatter\Plugin\Field\FieldFormatter;
 
+use Drupal\happy_formatter\Service\GetCoverService;
 use Drupal\Core\Field\FormatterBase;
+use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
-use GuzzleHttp\Client;
-use Exception;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Plugin implementation of the 'text_summary_or_trimmed' formatter.
@@ -22,7 +24,57 @@ use Exception;
  *   }
  * )
  */
-class RemotePoster extends FormatterBase {
+class RemotePoster extends FormatterBase implements ContainerFactoryPluginInterface {
+
+  /**
+   * The get cover service.
+   *
+   * @var \Drupal\happy_formatter\Service\GetCoverService
+   */
+  protected $cover_service;
+
+  /**
+   * Constructs a TimestampAgoFormatter object.
+   *
+   * @param string $plugin_id
+   *   The plugin_id for the formatter.
+   * @param mixed $plugin_definition
+   *   The plugin implementation definition.
+   * @param \Drupal\Core\Field\FieldDefinitionInterface $field_definition
+   *   The definition of the field to which the formatter is associated.
+   * @param array $settings
+   *   The formatter settings.
+   * @param string $label
+   *   The formatter label display setting.
+   * @param string $view_mode
+   *   The view mode.
+   * @param array $third_party_settings
+   *   Any third party settings.
+   * @param \Drupal\happy_formatter\Service\GetCoverService $cover_service
+   *   The get cover service.
+   */
+  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, GetCoverService $cover_service) {
+    parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
+
+    $this->cover_service = $cover_service;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $plugin_id,
+      $plugin_definition,
+      $configuration['field_definition'],
+      $configuration['settings'],
+      $configuration['label'],
+      $configuration['view_mode'],
+      $configuration['third_party_settings'],
+      $container->get('happy_formatter.get_cover_service')
+    );
+  }
+
   public static function getRemoteTypes() {
     return array(
       'movie' => t('Movie (From IMDB)'),
@@ -72,12 +124,13 @@ class RemotePoster extends FormatterBase {
    * that we want to display.
    */
   public function prepareView(array $entities_items) {
-    $client = new Client();
+
     foreach ($entities_items as $items) {
       foreach ($items as $item) {
         if ($item->value) {
           switch ($this->getSetting('cover_source')) {
             case 'movie':
+              $client = new Client();
               // Data from http://docs.themoviedb.apiary.io.
               // Get the updated config structure.
               $config = $client->get('http://api.themoviedb.org/3/configuration?api_key=061b3cf0b719f619b541d132a0491dd0');
@@ -99,13 +152,7 @@ class RemotePoster extends FormatterBase {
 
               break;
             case 'book':
-              // Get the book information.
-              $response = $client->get('https://www.googleapis.com/books/v1/volumes?q=isbn:' . $item->value);
-              $json = $response->json();
-
-              // Trick the API result to get a decent size of the book cover.
-              $cover = str_replace('zoom=1', 'zoom=2', $json['items'][0]['volumeInfo']['imageLinks']['thumbnail']);
-              $item->value = $cover;
+              $item->value = $this->cover_service->getCover('https://www.googleapis.com/books/v1/volumes?q=isbn:' . $item->value);
               break;
           }
         }
