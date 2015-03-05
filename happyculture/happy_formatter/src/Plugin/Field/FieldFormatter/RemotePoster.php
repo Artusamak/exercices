@@ -2,16 +2,17 @@
 
 namespace Drupal\happy_formatter\Plugin\Field\FieldFormatter;
 
-use Drupal\happy_formatter\Service\GetCoverService;
+use Drupal\happy_formatter\RemotePosterWSPluginManager;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Plugin\DefaultLazyPluginCollection;
 
 /**
- * Plugin implementation of the 'text_summary_or_trimmed' formatter.
+ * Plugin implementation of the 'remote_poster' formatter.
  *
  * @FieldFormatter(
  *   id = "remote_poster",
@@ -29,9 +30,9 @@ class RemotePoster extends FormatterBase implements ContainerFactoryPluginInterf
   /**
    * The get cover service.
    *
-   * @var \Drupal\happy_formatter\Service\GetCoverService
+   * @var \Drupal\happy_formatter\RemotePosterWSPluginManager
    */
-  protected $cover_service;
+  protected $remote_poster_plugin_manager;
 
   /**
    * Constructs a TimestampAgoFormatter object.
@@ -50,13 +51,13 @@ class RemotePoster extends FormatterBase implements ContainerFactoryPluginInterf
    *   The view mode.
    * @param array $third_party_settings
    *   Any third party settings.
-   * @param \Drupal\happy_formatter\Service\GetCoverService $cover_service
-   *   The get cover service.
+   * @param \Drupal\happy_formatter\RemotePosterWSPluginManager $remote_poster_plugin_manager
+   *   The remove poster service plugin manager.
    */
-  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, GetCoverService $cover_service) {
+  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, RemotePosterWSPluginManager $remote_poster_plugin_manager) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
 
-    $this->cover_service = $cover_service;
+    $this->remote_poster_plugin_manager = $remote_poster_plugin_manager;
   }
 
   /**
@@ -71,15 +72,16 @@ class RemotePoster extends FormatterBase implements ContainerFactoryPluginInterf
       $configuration['label'],
       $configuration['view_mode'],
       $configuration['third_party_settings'],
-      $container->get('happy_formatter.get_cover_service')
+      $container->get('plugin.manager.happy_formatter.remote_poster')
     );
   }
 
-  public static function getRemoteTypes() {
-    return array(
-      'movie' => t('Movie (From IMDB)'),
-      'book' => t('Book (From Google Books)'),
-    );
+  public function getRemoteTypes() {
+    $types = array();
+    foreach ($this->remote_poster_plugin_manager->getDefinitions() as $id => $plugin_data) {
+      $types[$id] = $plugin_data['name'];
+    }
+    return $types;
   }
 
   /**
@@ -128,33 +130,9 @@ class RemotePoster extends FormatterBase implements ContainerFactoryPluginInterf
     foreach ($entities_items as $items) {
       foreach ($items as $item) {
         if ($item->value) {
-          switch ($this->getSetting('cover_source')) {
-            case 'movie':
-              $client = new Client();
-              // Data from http://docs.themoviedb.apiary.io.
-              // Get the updated config structure.
-              $config = $client->get('http://api.themoviedb.org/3/configuration?api_key=061b3cf0b719f619b541d132a0491dd0');
-              $config_json = $config->json();
-
-              // Get the movie details.
-              // Catch potential errors in the call.
-              try {
-                $response = $client->get('https://api.themoviedb.org/3/movie/' . $item->value . '?api_key=061b3cf0b719f619b541d132a0491dd0&include_image_language=fr,null');
-                $json = $response->json();
-              }
-              catch(\Exception $e) {
-                // If an error occurred just reset the field value.
-                $item->value = FALSE;
-                break;
-              };
-              // Build the poster URL.
-              $item->value = $config_json['images']['base_url'] . '/w500/' . $json['poster_path'];
-
-              break;
-            case 'book':
-              $item->value = $this->cover_service->getCover('https://www.googleapis.com/books/v1/volumes?q=isbn:' . $item->value);
-              break;
-          }
+          $plugin_id  = $this->getSetting('cover_source');
+          $RemotePosterWS = $this->remote_poster_plugin_manager->createInstance($plugin_id);
+          $item->value = $RemotePosterWS->getCover($item->value);
         }
       }
     }
