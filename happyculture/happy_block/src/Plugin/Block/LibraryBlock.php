@@ -28,6 +28,8 @@ class LibraryBlock extends BlockBase {
   public function build() {
     // Keep the code but show this part only on the second part of the training
     // once we have the link view mode.
+    // @TODO:
+    // Find the right way to manage the two potential behaviors.
     if (FALSE) {
       // Query against our entities.
       $query = \Drupal::entityQuery('node')
@@ -35,6 +37,9 @@ class LibraryBlock extends BlockBase {
         ->condition('type', 'happy_book')
         ->condition('changed', REQUEST_TIME, '<');
 
+      // @TODO:
+      // Document this portion. Find a way to have something more consistent?
+      // What are the intentions?
       $book_number = 2;
       if (!is_null($book_number) && is_numeric($book_number)) {
         $query->range(1, $book_number);
@@ -47,15 +52,29 @@ class LibraryBlock extends BlockBase {
       // Now we can load the entities.
       $nodes = $storage->loadMultiple($nids);
 
-      return entity_view_multiple($nodes, 'link');
+      // Make sure that we have content to display to the user, otherwise
+      // display a polite message.
+      if (count($nodes) > 0) {
+        return entity_view_multiple($nodes, 'link');
+      }
+      else {
+        return array(
+          '#markup' => "<p>Aucun noeud n'est disponible pour le moment !</p>",
+        );
+      }
     }
     else {
+      $options = array(
+        'attributes' => array(
+          'title' => t('Visit the library.'),
+        ),
+      );
       return array(
-        '#markup' => \Drupal::l(t('Visit the library'), new Url('happy_query.query', array(), array(
-          'attributes' => array(
-            'title' => t('Visit the library.'),
-          ),
-        ))),
+        '#type' => 'link',
+        '#title' => t('Visit the library'),
+        '#url' => new Url('happy_query.query', array(), $options),
+        '#prefix' => '<p>',
+        '#suffix' => '</p>',
       );
     }
   }
