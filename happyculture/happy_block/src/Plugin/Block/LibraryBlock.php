@@ -17,7 +17,7 @@ use Drupal\Core\Access\AccessResultAllowed;
  *
  * @Block(
  *   id = "visit_library",
- *   admin_label = @Translation("Visit library"),
+ *   admin_label = @Translation("Visiter la librairie"),
  * )
  */
 class LibraryBlock extends BlockBase {
@@ -66,12 +66,12 @@ class LibraryBlock extends BlockBase {
     else {
       $options = array(
         'attributes' => array(
-          'title' => t('Visit the library.'),
+          'title' => t('Visiter la grande librairie.'),
         ),
       );
       return array(
         '#type' => 'link',
-        '#title' => t('Visit the library'),
+        '#title' => t('Visiter la grande librairie.'),
         '#url' => new Url('happy_query.query', array(), $options),
         '#prefix' => '<p>',
         '#suffix' => '</p>',

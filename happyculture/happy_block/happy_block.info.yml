@@ -1,6 +1,6 @@
-name: 04 - Block
+name: 04 - Blocs
 type: module
-description: Implements a block
+description: Implementer un bloc.
 core: 8.x
 package: Happyculture
 dependencies:
