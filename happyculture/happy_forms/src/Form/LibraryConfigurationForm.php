@@ -37,7 +37,8 @@ class LibraryConfigurationForm extends ConfigFormBase {
   }
 
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $config = \Drupal::configFactory()->getEditable('happy_forms.librarysettings');
+    $config = \Drupal::configFactory()
+      ->getEditable('happy_forms.librarysettings');
     $config->set('book_number', $form_state->getValue('book_number'));
     $config->save();
     parent::submitForm($form, $form_state);

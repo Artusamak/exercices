@@ -28,7 +28,7 @@ class LibraryBlock extends BlockBase {
   public function build() {
     // Keep the code but show this part only on the second part of the training
     // once we have the link view mode.
-    if (false) {
+    if (FALSE) {
       // Query against our entities.
       $query = \Drupal::entityQuery('node')
         ->condition('status', 1)

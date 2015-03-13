@@ -60,8 +60,7 @@ abstract class RemotePosterWSPluginBase extends PluginBase implements RemotePost
     $this->buildWebserviceUrl($param);
     try {
       $this->fetchResponse();
-    }
-    catch(\Exception $e) {
+    } catch (\Exception $e) {
       // If an error occurred just reset the field value.
       return FALSE;
     };

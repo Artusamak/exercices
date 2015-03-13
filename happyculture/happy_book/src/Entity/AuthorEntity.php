@@ -51,8 +51,7 @@ use Drupal\Core\Field\FieldStorageDefinitionInterface;
  *   field_ui_base_route = "author_entity.settings"
  * )
  */
-class AuthorEntity extends ContentEntityBase implements authorEntityInterface
- {
+class AuthorEntity extends ContentEntityBase implements authorEntityInterface {
   /**
    * {@inheritdoc}
    */

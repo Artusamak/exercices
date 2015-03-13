@@ -130,7 +130,7 @@ class RemotePoster extends FormatterBase implements ContainerFactoryPluginInterf
     foreach ($entities_items as $items) {
       foreach ($items as $item) {
         if ($item->value) {
-          $plugin_id  = $this->getSetting('cover_source');
+          $plugin_id = $this->getSetting('cover_source');
           $RemotePosterWS = $this->remote_poster_plugin_manager->createInstance($plugin_id);
           $item->value = $RemotePosterWS->getCover($item->value);
         }

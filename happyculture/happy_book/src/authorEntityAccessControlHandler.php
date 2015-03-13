@@ -17,10 +17,7 @@ use Drupal\Core\Access\AccessResult;
  *
  * @see \Drupal\happy_book\Entity\authorEntity.
  */
-class authorEntityAccessControlHandler extends EntityAccessControlHandler
- {
-
-
+class authorEntityAccessControlHandler extends EntityAccessControlHandler {
 
 
   /**

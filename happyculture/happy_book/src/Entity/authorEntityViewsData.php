@@ -13,10 +13,7 @@ use Drupal\views\EntityViewsDataInterface;
 /**
  * Provides the views data for the AuthorEntity entity type.
  */
-class authorEntityViewsData extends EntityViewsData implements EntityViewsDataInterface
- {
-
-
+class authorEntityViewsData extends EntityViewsData implements EntityViewsDataInterface {
 
 
   /**

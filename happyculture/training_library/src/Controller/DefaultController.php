@@ -9,7 +9,7 @@ namespace Drupal\training_library\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 
-class DefaultController extends ControllerBase  {
+class DefaultController extends ControllerBase {
   /**
    * Hello.
    *
@@ -18,8 +18,8 @@ class DefaultController extends ControllerBase  {
    */
   public function hello($name) {
     return [
-        '#type' => 'markup',
-        '#markup' => $this->t('Hello @name!', ['@name' => $name])
+      '#type' => 'markup',
+      '#markup' => $this->t('Hello @name!', ['@name' => $name])
     ];
   }
 }

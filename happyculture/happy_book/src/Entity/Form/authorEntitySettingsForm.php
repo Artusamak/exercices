@@ -15,10 +15,7 @@ use Drupal\Core\Form\FormStateInterface;
  * @package Drupal\happy_book\Form
  * @ingroup happy_book
  */
-class authorEntitySettingsForm extends FormBase
- {
-
-
+class authorEntitySettingsForm extends FormBase {
 
 
   /**

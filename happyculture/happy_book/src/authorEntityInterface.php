@@ -15,10 +15,7 @@ use Drupal\user\EntityOwnerInterface;
  * Provides an interface defining a AuthorEntity entity.
  * @ingroup account
  */
-interface authorEntityInterface extends ContentEntityInterface, EntityOwnerInterface
- {
-
-
+interface authorEntityInterface extends ContentEntityInterface, EntityOwnerInterface {
 
 
   // Add get/set methods for your configuration properties here.

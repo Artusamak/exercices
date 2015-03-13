@@ -56,7 +56,7 @@ class Themoviedb extends RemotePosterWSPluginBase {
         'api_key' => '061b3cf0b719f619b541d132a0491dd0',
         'include_image_language' => 'fr,null',
       ),
-      'absolute' => true,
+      'absolute' => TRUE,
       //'https' => true,
     );
     $this->webservice_url_with_parameters = Url::fromUri($this->base_webservice_url . $param, $options);
@@ -77,8 +77,7 @@ class Themoviedb extends RemotePosterWSPluginBase {
     $this->buildWebserviceUrl('configuration');
     try {
       $this->fetchResponse();
-    }
-    catch(\Exception $e) {
+    } catch (\Exception $e) {
       // If an error occurred just reset the field value.
       return FALSE;
     };
@@ -88,8 +87,7 @@ class Themoviedb extends RemotePosterWSPluginBase {
     $this->buildWebserviceUrl('movie/' . $param);
     try {
       $this->fetchResponse();
-    }
-    catch(\Exception $e) {
+    } catch (\Exception $e) {
       // If an error occurred just reset the field value.
       return FALSE;
     };

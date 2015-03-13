@@ -16,10 +16,7 @@ use Drupal\Core\Language\Language;
  *
  * @ingroup happy_book
  */
-class authorEntityForm extends ContentEntityForm
- {
-
-
+class authorEntityForm extends ContentEntityForm {
 
 
   /**

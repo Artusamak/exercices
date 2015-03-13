@@ -16,8 +16,7 @@ use Drupal\Core\Url;
  *
  * @ingroup happy_book
  */
-class authorEntityListController extends EntityListBuilder
- {
+class authorEntityListController extends EntityListBuilder {
 
   /**
    * {@inheritdoc}
@@ -35,10 +34,10 @@ class authorEntityListController extends EntityListBuilder
     /* @var $entity \Drupal\happy_book\Entity\AuthorEntity */
     $row['id'] = $entity->id();
     $row['name'] = \Drupal::l(
-        $this->getLabel($entity),
-        new Url(
-          'entity.author_entity.canonical', array(
-            'author_entity' => $entity->id(),
+      $this->getLabel($entity),
+      new Url(
+        'entity.author_entity.canonical', array(
+          'author_entity' => $entity->id(),
         )
       )
     );

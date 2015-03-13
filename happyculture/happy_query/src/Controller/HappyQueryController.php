@@ -77,9 +77,10 @@ class HappyQueryController extends ControllerBase {
 
       list($entity_type, $viewmode_name) = explode('.', $viewmode->getOriginalId());
       $build = entity_view_multiple($nodes, $viewmode_name);
-      $build['#title'] = \Drupal::translation()->translate('Happy Query by view mode: @label', array('@label' => $viewmode->label()));
+      $build['#title'] = \Drupal::translation()
+        ->translate('Happy Query by view mode: @label', array('@label' => $viewmode->label()));
       return $build;
-      }
+    }
     else {
       return array(
         '#markup' => '<p>No result</p>'

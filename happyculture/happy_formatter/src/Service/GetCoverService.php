@@ -6,6 +6,7 @@
  */
 
 namespace Drupal\happy_formatter\Service;
+
 use GuzzleHttp\Client;
 
 /**
@@ -46,8 +47,7 @@ class GetCoverService {
     $this->setWebserviceUrl($url);
     try {
       $this->fetchResponse();
-    }
-    catch(\Exception $e) {
+    } catch (\Exception $e) {
       // If an error occurred just reset the field value.
       return FALSE;
     };

@@ -12,11 +12,7 @@ use Drupal\simpletest\WebTestBase;
 /**
  * Provides automated tests for the training_library module.
  */
-class DefaultControllerTest extends WebTestBase
- {
-
-
-
+class DefaultControllerTest extends WebTestBase {
 
 
   /**

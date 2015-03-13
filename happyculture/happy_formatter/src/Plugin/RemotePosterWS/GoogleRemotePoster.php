@@ -45,7 +45,7 @@ class GoogleRemotePoster extends RemotePosterWSPluginBase {
   public function buildWebserviceUrl($param) {
     $options = array(
       'query' => array('q' => 'isbn:' . $param),
-      'absolute' => true,
+      'absolute' => TRUE,
       //'https' => true,
     );
     $this->webservice_url_with_parameters = Url::fromUri($this->base_webservice_url, $options);
@@ -64,8 +64,7 @@ class GoogleRemotePoster extends RemotePosterWSPluginBase {
     $this->buildWebserviceUrl($param);
     try {
       $this->fetchResponse();
-    }
-    catch(\Exception $e) {
+    } catch (\Exception $e) {
       // If an error occurred just reset the field value.
       return FALSE;
     };

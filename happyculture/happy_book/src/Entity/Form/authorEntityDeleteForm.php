@@ -16,10 +16,7 @@ use Drupal\Core\Url;
  *
  * @ingroup happy_book
  */
-class authorEntityDeleteForm extends ContentEntityConfirmFormBase
- {
-
-
+class authorEntityDeleteForm extends ContentEntityConfirmFormBase {
 
 
   /**
@@ -51,11 +48,11 @@ class authorEntityDeleteForm extends ContentEntityConfirmFormBase
 
     drupal_set_message(
       $this->t('content @type: deleted @label.',
-      [
-        '@type' => $this->entity->bundle(),
-        '@label' => $this->entity->label()
-      ]
-    ));
+        [
+          '@type' => $this->entity->bundle(),
+          '@label' => $this->entity->label()
+        ]
+      ));
 
     $form_state->setRedirectUrl($this->getCancelUrl());
   }
