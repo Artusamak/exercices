@@ -8,6 +8,7 @@
 namespace Drupal\happy_block\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Access\AccessResultAllowed;
@@ -17,7 +18,7 @@ use Drupal\Core\Access\AccessResultAllowed;
  *
  * @Block(
  *   id = "visit_library",
- *   admin_label = @Translation("Visiter la librairie"),
+ *   admin_label = @Translation("Visit the library"),
  * )
  */
 class LibraryBlock extends BlockBase {
@@ -66,12 +67,12 @@ class LibraryBlock extends BlockBase {
     else {
       $options = array(
         'attributes' => array(
-          'title' => t('Visiter la grande librairie.'),
+          'title' => $this->link_label(),
         ),
       );
       return array(
         '#type' => 'link',
-        '#title' => t('Visiter la grande librairie.'),
+        '#title' => $this->link_label(),
         '#url' => new Url('happy_query.query', array(), $options),
         '#prefix' => '<p>',
         '#suffix' => '</p>',
@@ -86,4 +87,41 @@ class LibraryBlock extends BlockBase {
     return AccessResultAllowed::allowedIfHasPermission($account, 'access_happy_library');
   }
 
+  /**
+   * Returns the custom label of the link.
+   *
+   * @return string
+   *   The link label.
+   */
+  public function link_label() {
+    if (!empty($this->configuration['link_label'])) {
+      return $this->configuration['link_label'];
+    }
+    else {
+      return t('Visit the library.');
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function blockForm($form, FormStateInterface $form_state) {
+    $form = parent::blockForm($form, $form_state);
+
+    $form['link_label'] = array(
+      '#type' => 'textfield',
+      '#title' => $this->t('Label of the link'),
+      '#maxlength' => 255,
+      '#default_value' => $this->link_label(),
+    );
+    return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function blockSubmit($form, FormStateInterface $form_state) {
+    // Save our custom settings when the form is submitted.
+    $this->setConfigurationValue('link_label', $form_state->getValue('link_label'));
+  }
 }

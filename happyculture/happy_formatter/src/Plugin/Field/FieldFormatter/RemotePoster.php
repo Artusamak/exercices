@@ -9,7 +9,6 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\Core\Plugin\DefaultLazyPluginCollection;
 
 /**
  * Plugin implementation of the 'remote_poster' formatter.
@@ -142,7 +141,6 @@ class RemotePoster extends FormatterBase implements ContainerFactoryPluginInterf
    * This method is the wrapper for the formatter.
    */
   public function view(FieldItemListInterface $items) {
-    // Static part for a renderable array.
     $types = $this->getRemoteTypes();
     $elements['cover_source'] = array(
       '#markup' => '<p>The cover source is: ' . $types[$this->settings['cover_source']] . '</p>',
