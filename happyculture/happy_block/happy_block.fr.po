@@ -1,0 +1,20 @@
+# French translation of d8.drupal.dev
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2015-03-17 18:21+0100\n"
+"PO-Revision-Date: 2015-03-17 18:21+0100\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Visit the library."
+msgstr "Visiter la librairie."
+msgid "Visit the library"
+msgstr "Visiter la librairie"
+msgid "Label of the link"
+msgstr "Libellé du lien."
