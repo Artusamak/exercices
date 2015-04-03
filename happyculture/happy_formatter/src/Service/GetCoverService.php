@@ -3,6 +3,9 @@
 /**
  * @file
  * Contains \Drupal\happy_formatter\Service\GetCoverService.
+ *
+ * This code is used in the training exercise about services. It become useless
+ * once the RemotePoster Plugin type is created.
  */
 
 namespace Drupal\happy_formatter\Service;
