@@ -1,0 +1,18 @@
+# Basic exemple.
+happy_library.simple_welcome_controller:
+  path: '/welcome'
+  defaults:
+    _controller: '\Drupal\happy_library\Controller\AlexandrieController::helloWorld'
+    _title: 'Welcoming Title'
+  requirements:
+    _permission: 'access content'
+
+# Advenced exemple for the faster.
+happy_library.dynamic_welcome_controller:
+  path: '/welcome/{name}'
+  defaults:
+    _controller: '\Drupal\happy_library\Controller\AlexandrieController::hello'
+    _title: 'Welcoming Title'
+    name: 'world'
+  requirements:
+    _permission: 'access content'

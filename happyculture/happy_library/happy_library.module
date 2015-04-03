@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains training_library.module
+ * Contains happy_library.module
  */
 
 /**
@@ -10,5 +10,5 @@
  */
 function training_library_page_attachments_alter(array &$attachments) {
   // Attach the library to all pages.
-  $attachments['#attached']['library'][] = 'training_library/local-favorite';
+  $attachments['#attached']['library'][] = 'happy_library/local-favorite';
 }

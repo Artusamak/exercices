@@ -1,8 +1,0 @@
-training_library.default_controller_hello:
-  path: 'training_library/hello/{name}'
-  defaults:
-    _controller: '\Drupal\training_library\Controller\DefaultController::hello'
-    _title: 'training_library Title'
-  requirements:
-    _permission: 'access content'
-
