@@ -84,7 +84,7 @@ class LibraryBlock extends BlockBase {
    * {@inheritdoc}
    */
   public function access(AccountInterface $account, $return_as_object = FALSE) {
-    return AccessResultAllowed::allowedIfHasPermission($account, 'access_happy_library');
+    return AccessResultAllowed::allowedIfHasPermission($account, 'access alexandrie library');
   }
 
   /**
