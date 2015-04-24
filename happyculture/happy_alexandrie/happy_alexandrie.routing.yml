@@ -64,7 +64,7 @@ happy_alexandrie.simple_welcome_controller:
     _permission: 'access content'
 
 happy_alexandrie.welcome_timelimited_access:
-  path: /welcome
+  path: '/welcome-limited'
   defaults:
     _controller: '\Drupal\alexandrie\Controller\AlexandrieController::hello'
     _title: 'Welcome'
