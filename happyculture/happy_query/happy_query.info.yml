@@ -1,7 +1,0 @@
-name: 02 - Entity Field Query
-description: Demo the Entity Field Query.
-type: module
-package: Happyculture
-version: 1.0
-core: 8.x
-

@@ -1,7 +1,0 @@
-happy_forms.library_configuration:
-  path: '/admin/config/system/happy-library'
-  defaults:
-    _form: '\Drupal\happy_forms\Form\LibraryConfigurationForm'
-    _title: 'Library configuration'
-  requirements:
-    _permission: 'administer site configuration'

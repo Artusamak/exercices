@@ -1,9 +1,0 @@
-name: 04 - Blocs
-type: module
-description: Implementer un bloc.
-core: 8.x
-package: Happyculture
-interface translation project: happy_block
-interface translation server pattern: modules/custom/happyculture/happy_block/%project.%language.po
-dependencies:
-  - happy_query

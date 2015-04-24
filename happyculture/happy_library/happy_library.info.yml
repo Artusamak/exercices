@@ -1,5 +1,0 @@
-name: 00 - Happy library
-type: module
-description: Add a library management used for training.
-core: 8.x
-package: Happyculture

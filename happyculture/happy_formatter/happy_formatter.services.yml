@@ -1,8 +1,0 @@
-services:
-  # This code is used in the exercise about services. It become useless once
-  # the RemotePoster Plugin type is created.
-  happy_formatter.get_cover_service:
-    class: Drupal\happy_formatter\Service\GetCoverService
-  plugin.manager.happy_formatter.remote_poster:
-    class: Drupal\happy_formatter\RemotePosterWSPluginManager
-    parent: default_plugin_manager

@@ -1,0 +1,24 @@
+# authorEntity menu items definition
+entity.author_entity.list:
+  title: 'AuthorEntity: Listing'
+  route_name: entity.author_entity.list
+  description: 'List AuthorEntity'
+
+author_entity.admin.structure.settings:
+  title: AuthorEntity Settings
+  description: 'Configure AuthorEntity entity'
+  route_name:  author_entity.settings
+  parent: system.admin_structure
+
+happy_alexandrie.library_configuration:
+  title: 'Happy library'
+  description: 'Set the librairy variables'
+  route_name: happy_alexandrie.library_configuration
+  parent: system.admin_config_system
+
+happy_alexandrie.simple_welcome_controller:
+  title: 'Visit the library'
+  menu_name: tools
+  description: 'Visit the library.'
+  route_name: happy_alexandrie.simple_welcome_controller
+  weight: 1

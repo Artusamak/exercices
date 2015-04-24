@@ -1,0 +1,53 @@
+<?php
+
+/**
+ * @file
+ * Contains happy_alexandrie.module
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+
+function happy_alexandrie_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the happy_alexandrie module.
+    case 'help.page.happy_alexandrie':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Module that implements a new book entity type.') . '</p>';
+      return $output;
+      break;
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+
+function happy_alexandrie_theme() {
+  $theme = [];
+
+  $theme['author_entity'] = array(
+    'render element' => 'elements',
+    'file' => 'author_entity.page.inc',
+    'template' => 'author_entity',
+  );
+
+  $theme['happy_poster'] = array(
+    'variables' => array('movie_id' => FALSE),
+    'template' => 'happy-poster',
+  );
+
+  return $theme;
+}
+
+/**
+ * Implements hook_page_attachments_alter().
+ */
+function happy_alexandrie_page_attachments_alter(array &$attachments) {
+  // Attach the library to all pages.
+  $attachments['#attached']['library'][] = 'happy_alexandrie/local-favorite';
+}
