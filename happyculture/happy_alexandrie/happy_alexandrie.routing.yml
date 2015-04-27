@@ -1,3 +1,4 @@
+# ADMIN ROUTES -------------------------------
 # authorEntity routing definition
 entity.author_entity.canonical:
   path: '/author_entity/{author_entity}'
@@ -63,15 +64,17 @@ happy_alexandrie.simple_welcome_controller:
   requirements:
     _permission: 'access content'
 
+# Displays the welcome message if you access during the opening hours.
 happy_alexandrie.welcome_timelimited_access:
   path: '/welcome-limited'
   defaults:
-    _controller: '\Drupal\alexandrie\Controller\AlexandrieController::hello'
+    _controller: '\Drupal\happy_alexandrie\Controller\AlexandrieController::hello'
     _title: 'Welcome'
   requirements:
     _custom_access: '\Drupal\alexandrie\Controller\AlexandrieAccess::accessLibrary'
     _permission: 'access alexandrie library'
 
+# Displays the welcome message to a specific username.
 happy_alexandrie.dynamic_welcome_controller:
   path: '/welcome/{name}'
   defaults:
@@ -88,6 +91,7 @@ happy_alexandrie.query:
     _title: 'Happy Query'
   requirements:
     _permission: 'access alexandrie library'
+
 
 happy_alexandrie.view_mode:
   # Pass an additional variable that will be available in our method.
