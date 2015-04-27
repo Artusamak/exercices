@@ -56,6 +56,16 @@ happy_alexandrie.library_configuration:
   requirements:
     _permission: 'administer site configuration'
 
+# Grande library configuration.
+happy_alexandrie.config_library:
+  path: '/admin/config/alexandrie'
+  defaults:
+    _form: '\Drupal\happy_alexandrie\Form\AlexandrieConfigForm'
+  requirements:
+    _permission: 'administer site configuration'
+
+# NORMAL ROUTES -------------------------------
+# Displays the welcome message.
 happy_alexandrie.simple_welcome_controller:
   path: '/welcome'
   defaults:
