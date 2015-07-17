@@ -76,15 +76,6 @@ happy_alexandrie.config_library_information:
   requirements:
     _permission: 'administer site configuration'
 
-# Configure the number of listed items in the EFQ.
-happy_alexandrie.config_library_listing:
-  path: '/admin/config/alexandrie/library-listing'
-  defaults:
-    _form: '\Drupal\happy_alexandrie\Form\LibraryConfigurationForm'
-    _title: 'Library configuration'
-  requirements:
-    _permission: 'administer site configuration'
-
 # NORMAL ROUTES -------------------------------
 # Displays the welcome message.
 happy_alexandrie.simple_welcome_controller:

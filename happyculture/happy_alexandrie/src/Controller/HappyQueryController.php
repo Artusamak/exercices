@@ -7,7 +7,6 @@
 
 namespace Drupal\happy_alexandrie\Controller;
 
-use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Entity\EntityManager;
 use Drupal\Core\Entity\EntityViewModeInterface;
 use Drupal\Core\Controller\ControllerBase;
@@ -33,10 +32,9 @@ class HappyQueryController extends ControllerBase {
    */
   public $entity_manager;
 
-  public function __construct(QueryFactory $queryFactory, EntityManager $entityManager, ConfigFactory $configFactory) {
+  public function __construct(QueryFactory $queryFactory, EntityManager $entityManager) {
     $this->query_factory = $queryFactory;
     $this->entity_manager = $entityManager;
-    $this->config_factory = $configFactory;
   }
 
   /**
@@ -45,25 +43,18 @@ class HappyQueryController extends ControllerBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('entity.query'),
-      $container->get('entity.manager'),
-      $container->get('config.factory')
+      $container->get('entity.manager')
     );
   }
 
   public function query() {
-
-    $config = $this->config_factory->get('happy_forms.librarysettings');
-    $book_number = $config->get('book_number');
-
     // Query against our entities.
     $query = $this->query_factory->get('node')
       ->condition('status', 1)
       ->condition('type', 'alexandrie_book')
-      ->condition('changed', REQUEST_TIME, '<');
+      ->condition('changed', REQUEST_TIME, '<')
+      ->range(0, 5);
 
-    if (!is_null($book_number) && is_numeric($book_number)) {
-      $query->range(0, $book_number);
-    }
     $nids = $query->execute();
 
     if ($nids) {
@@ -83,18 +74,11 @@ class HappyQueryController extends ControllerBase {
   }
 
   public function query_mode(EntityViewModeInterface $viewmode) {
-
-    $config = $this->config_factory->get('happy_forms.librarysettings');
-    $book_number = $config->get('book_number');
-
     $query = $this->query_factory->get('node')
       ->condition('status', 1)
       ->condition('type', 'alexandrie_book')
-      ->condition('changed', REQUEST_TIME, '<');
-
-    if (!is_null($book_number) && is_numeric($book_number)) {
-      $query->range(0, $book_number);
-    }
+      ->condition('changed', REQUEST_TIME, '<')
+      ->range(0, 5);
 
     $nids = $query->execute();
 
