@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\alexandrie\Controller;
+namespace Drupal\happy_alexandrie\Controller;
 
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Access\AccessResult;

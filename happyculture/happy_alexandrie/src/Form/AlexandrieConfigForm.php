@@ -26,7 +26,7 @@ class AlexandrieConfigForm extends ConfigFormBase {
    */
   public function getEditableConfigNames() {
     return array(
-      'alexandrie.library_config'
+      'happy_alexandrie.library_config'
     );
   }
 
@@ -47,7 +47,7 @@ class AlexandrieConfigForm extends ConfigFormBase {
       '#type' => 'textarea',
       '#title' => 'Opening hours',
       '#description' => 'Days / hours of the library',
-      '#default_value' => $this->config('alexandrie.library_config')->get('opening_hours'),
+      '#default_value' => $this->config('happy_alexandrie.library_config')->get('opening_hours'),
       '#rows' => 5,
     );
     return $form;
@@ -59,7 +59,7 @@ class AlexandrieConfigForm extends ConfigFormBase {
    * Implements the form logic.
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $this->config('alexandrie.library_config')
+    $this->config('happy_alexandrie.library_config')
       ->set('opening_hours', $form_state->getValue('opening_hours'))
       ->save();
     // Call the parent implementation to inherit from what has been done in it.

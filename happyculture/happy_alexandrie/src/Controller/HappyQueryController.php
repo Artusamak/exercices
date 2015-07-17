@@ -7,9 +7,12 @@
 
 namespace Drupal\happy_alexandrie\Controller;
 
+use Drupal\Core\Config\ConfigFactory;
+use Drupal\Core\Entity\EntityManager;
 use Drupal\Core\Entity\EntityViewModeInterface;
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\Component\Utility\String;
+use Drupal\Core\Entity\Query\QueryFactory;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Returns responses for Happyquery module routes.
@@ -17,52 +20,76 @@ use Drupal\Component\Utility\String;
 class HappyQueryController extends ControllerBase {
 
   /**
-   * Number of element to get.
+   * The query factory to create entity queries.
    *
-   * @var \Drupal\Core\Form\FormBuilderInterface
+   * @var \Drupal\Core\Entity\Query\QueryFactory
    */
-  public $formBuilder;
+  public $query_factory;
+
+  /**
+   * The entity manager.
+   *
+   * @var \Drupal\Core\Entity\EntityManager
+   */
+  public $entity_manager;
+
+  public function __construct(QueryFactory $queryFactory, EntityManager $entityManager, ConfigFactory $configFactory) {
+    $this->query_factory = $queryFactory;
+    $this->entity_manager = $entityManager;
+    $this->config_factory = $configFactory;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('entity.query'),
+      $container->get('entity.manager'),
+      $container->get('config.factory')
+    );
+  }
 
   public function query() {
 
-    $config = \Drupal::config('happy_forms.librarysettings');
+    $config = $this->config_factory->get('happy_forms.librarysettings');
     $book_number = $config->get('book_number');
 
     // Query against our entities.
-    $query = \Drupal::entityQuery('node')
+    $query = $this->query_factory->get('node')
       ->condition('status', 1)
-      ->condition('type', 'happy_book')
+      ->condition('type', 'alexandrie_book')
       ->condition('changed', REQUEST_TIME, '<');
 
     if (!is_null($book_number) && is_numeric($book_number)) {
       $query->range(0, $book_number);
     }
-
     $nids = $query->execute();
 
     if ($nids) {
       // Load the storage manager of our entity.
-      $storage = \Drupal::entityManager()->getStorage('node');
+      $storage = $this->entity_manager->getStorage('node');
       // Now we can load the entities.
       $nodes = $storage->loadMultiple($nids);
-
-      return entity_view_multiple($nodes, 'list');
+      // Get the EntityViewBuilder instance.
+      $render_controller = $this->entity_manager->getViewBuilder('node');
+      return $render_controller->viewMultiple($nodes, 'list');
     }
     else {
       return array(
-        '#markup' => '<p>No result</p>'
+        '#markup' => $this->t('No result')
       );
     }
   }
 
   public function query_mode(EntityViewModeInterface $viewmode) {
 
-    $config = \Drupal::config('happy_forms.librarysettings');
+    $config = $this->config_factory->get('happy_forms.librarysettings');
     $book_number = $config->get('book_number');
 
-    $query = \Drupal::entityQuery('node')
+    $query = $this->query_factory->get('node')
       ->condition('status', 1)
-      ->condition('type', 'happy_book')
+      ->condition('type', 'alexandrie_book')
       ->condition('changed', REQUEST_TIME, '<');
 
     if (!is_null($book_number) && is_numeric($book_number)) {
@@ -72,20 +99,19 @@ class HappyQueryController extends ControllerBase {
     $nids = $query->execute();
 
     if ($nids) {
-      $storage = \Drupal::entityManager()->getStorage('node');
+      $storage = $this->entity_manager->getStorage('node');
       $nodes = $storage->loadMultiple($nids);
 
       list($entity_type, $viewmode_name) = explode('.', $viewmode->getOriginalId());
-      $build = entity_view_multiple($nodes, $viewmode_name);
-      $build['#title'] = \Drupal::translation()
-        ->translate('Happy Query by view mode: @label', array('@label' => $viewmode->label()));
+      $render_controller = $this->entity_manager->getViewBuilder('node');
+      $build = $render_controller->viewMultiple($nodes, $viewmode_name);
+      $build['#title'] = $this->t('Happy Query by view mode: @label', array('@label' => $viewmode->label()));
       return $build;
     }
     else {
       return array(
-        '#markup' => '<p>No result</p>'
+        '#markup' => $this->t('No result')
       );
     }
   }
-
 }

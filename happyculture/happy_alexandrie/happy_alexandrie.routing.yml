@@ -99,10 +99,10 @@ happy_alexandrie.simple_welcome_controller:
 happy_alexandrie.welcome_timelimited_access:
   path: '/welcome-limited'
   defaults:
-    _controller: '\Drupal\happy_alexandrie\Controller\AlexandrieController::hello'
+    _controller: '\Drupal\happy_alexandrie\Controller\AlexandrieController::helloWorld'
     _title: 'Welcome'
   requirements:
-    _custom_access: '\Drupal\alexandrie\Controller\AlexandrieAccess::accessLibrary'
+    _custom_access: '\Drupal\happy_alexandrie\Controller\AlexandrieAccess::accessLibrary'
     _permission: 'access alexandrie library'
 
 # Displays the welcome message to a specific username.
@@ -116,7 +116,7 @@ happy_alexandrie.dynamic_welcome_controller:
     _permission: 'access content'
 
 happy_alexandrie.query:
-  path: happy/query
+  path: 'happy/query'
   defaults:
     _controller: '\Drupal\happy_alexandrie\Controller\HappyQueryController::query'
     _title: 'Happy Query'
@@ -126,7 +126,7 @@ happy_alexandrie.query:
 
 happy_alexandrie.view_mode:
   # Pass an additional variable that will be available in our method.
-  path: happy/query/{viewmode}
+  path: 'happy/query/{viewmode}'
   defaults:
     _controller: '\Drupal\happy_alexandrie\Controller\HappyQueryController::query_mode'
     _title: 'Happy Query by view mode'

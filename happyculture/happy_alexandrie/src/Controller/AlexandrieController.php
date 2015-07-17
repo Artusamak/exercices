@@ -17,20 +17,19 @@ class AlexandrieController extends ControllerBase {
    *   Return "Hello world!" string.
    */
   public function helloWorld() {
-    return [
+    $content = [
       '#type' => 'markup',
       '#markup' => $this->t('Hello world!')
     ];
     // Second version displaying the opening hours of the library.
-    $opening_hours = $this->config('alexandrie.library_config')->get('opening_hours');
-    if (empty($opening_hours)) {
-      $opening_hours = '';
+    $opening_hours = $this->config('happy_alexandrie.library_config')->get('opening_hours');
+    if (!empty($opening_hours)) {
+      $content = [
+        'content' => [
+          '#markup' => $this->t('<p>Greetings dear adventurer!</p><p>Opening hours:<br />@opening_hours</p>', array('@opening_hours' => $opening_hours)),
+        ]
+      ];
     }
-    $content = [
-      'content' => [
-        '#markup' => $this->t('<p>Greetings dear adventurer!</p><p>Opening hours:<br />@opening_hours</p>', array('@opening_hours' => $opening_hours)),
-      ]
-    ];
     return $content;
   }
 
