@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.alexandrie_book.body
     - field.field.node.alexandrie_book.field_author
     - field.field.node.alexandrie_book.field_cover
+    - field.field.node.alexandrie_book.field_isbn
     - node.type.alexandrie_book
   module:
     - image
@@ -43,6 +44,13 @@ content:
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
+  field_isbn:
+    weight: 34
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
   path:
     type: path
     weight: 30
