@@ -45,5 +45,5 @@ happy_alexandrie.config_library_information:
 happy_alexandrie.config_library_listing:
   title: 'Listing parameters'
   description: 'Set the listing page parameters.'
-  route_name: happy_alexandrie.config_library_listing
+  route_name: happy_alexandrie.config_library_information
   parent: happy_alexandrie.config_library

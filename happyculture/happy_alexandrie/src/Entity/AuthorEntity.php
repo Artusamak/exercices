@@ -44,11 +44,11 @@ use Drupal\Core\Field\FieldStorageDefinitionInterface;
  *     "uuid" = "uuid"
  *   },
  *   links = {
- *     "canonical" = "entity.author_entity.canonical",
- *     "edit-form" = "entity.author_entity.edit_form",
- *     "delete-form" = "entity.author_entity.delete_form"
+ *     "canonical" = "/author_entity/{author_entity}",
+ *     "edit-form" = "/admin/author_entity/{author_entity}/edit",
+ *     "delete-form" = "/admin/author_entity/{author_entity}/delete"
  *   },
- *   field_ui_base_route = "author_entity.settings"
+ *   field_ui_base_route = "/admin/structure/author_entity"
  * )
  */
 class AuthorEntity extends ContentEntityBase implements authorEntityInterface {

@@ -41,7 +41,7 @@ entity.author_entity.delete_form:
     _entity_access: 'author_entity.delete'
 
 author_entity.settings:
-  path: 'admin/structure/author_entity'
+  path: '/admin/structure/author_entity'
   defaults:
    _form: '\Drupal\happy_alexandrie\Entity\Form\authorEntitySettingsForm'
    _title: 'AuthorEntity Settings'
