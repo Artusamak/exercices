@@ -66,7 +66,8 @@ class Themoviedb extends RemotePosterWSPluginBase {
    * Call the web service with the good parameter to get the cover image url.
    *
    * @var string
-   *   The parameter used by the service to get the url of a poster.
+   *   The parameter used by the service to get the url of a poster. An isbn
+   *   number most of the time.
    *
    * @return string
    *   An url of the image cover.

@@ -26,12 +26,13 @@ interface RemotePosterWSInterface {
    * Call the web service with the good parameter to get the cover image url.
    *
    * @var string
-   *   The webservice url to ask for a poster.
+   *   The parameter used by the service to get the url of a poster. An isbn
+   *   number most of the time.
    *
    * @return string
    *   An url of the image cover.
    */
-  public function getCover($webservice_url);
+  public function getCover($param);
 
   /**
    * Extract the cover image url from the response webservice data.
