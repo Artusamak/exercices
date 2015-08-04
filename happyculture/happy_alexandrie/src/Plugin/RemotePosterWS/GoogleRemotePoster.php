@@ -78,7 +78,7 @@ class GoogleRemotePoster extends RemotePosterWSPluginBase {
    * @return string
    *   An url of the image cover.
    */
-  public function extractCover() {
+  protected function extractCover() {
     // Trick the API result to get a decent size of the book cover.
     return str_replace('zoom=1', 'zoom=2', $this->response['items'][0]['volumeInfo']['imageLinks']['thumbnail']);
   }
@@ -86,7 +86,7 @@ class GoogleRemotePoster extends RemotePosterWSPluginBase {
   /**
    * Helper function to fetch a result from the webservice.
    */
-  public function fetchResponse() {
+  protected function fetchResponse() {
     $client = new Client();
     $response = $client->get($this->webservice_url_with_parameters);
     $this->response = $response->json();

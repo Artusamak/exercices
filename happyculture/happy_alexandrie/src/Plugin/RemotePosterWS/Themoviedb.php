@@ -102,14 +102,14 @@ class Themoviedb extends RemotePosterWSPluginBase {
    * @return string
    *   An url of the image cover.
    */
-  public function extractCover() {
+  protected function extractCover() {
     return $this->image_base_url . $this->response['poster_path'];
   }
 
   /**
    * Helper function to fetch a result from the webservice.
    */
-  public function fetchResponse() {
+  protected function fetchResponse() {
     $client = new Client();
     $response = $client->get($this->webservice_url_with_parameters);
     $this->response = $response->json();

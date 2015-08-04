@@ -44,7 +44,7 @@ abstract class RemotePosterWSPluginBase extends PluginBase implements RemotePost
    *   The parameter used by the service to get the url of a poster.
    */
   public function buildWebserviceUrl($param) {
-    $this->$webservice_url_with_parameters = $this->$base_webservice_url . '/' . $param;
+    $this->webservice_url_with_parameters = $this->base_webservice_url . '/' . $param;
   }
 
   /**
@@ -74,16 +74,16 @@ abstract class RemotePosterWSPluginBase extends PluginBase implements RemotePost
    * @return string
    *   An url of the image cover.
    */
-  public function extractCover() {
+  protected function extractCover() {
     return $this->response['data']['cover'];
   }
 
   /**
    * Helper function to fetch a result from the webservice.
    */
-  public function fetchResponse() {
+  protected function fetchResponse() {
     $client = new Client();
-    $response = $client->get($this->$webservice_url_with_parameters);
+    $response = $client->get($this->webservice_url_with_parameters);
     $this->response = $response->json();
   }
 }

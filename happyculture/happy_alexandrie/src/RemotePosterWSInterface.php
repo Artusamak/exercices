@@ -33,17 +33,4 @@ interface RemotePosterWSInterface {
    *   An url of the image cover.
    */
   public function getCover($param);
-
-  /**
-   * Extract the cover image url from the response webservice data.
-   *
-   * @return string
-   *   An url of the image cover.
-   */
-  public function extractCover();
-
-  /**
-   * Helper function to fetch a result from the webservice.
-   */
-  public function fetchResponse();
 }
