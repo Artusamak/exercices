@@ -74,9 +74,9 @@ class IsbnFormatter extends FormatterBase {
     $elements = array();
 
     foreach ($items as $delta => $item) {
+      $name = $item->mainPropertyName();
       $elements[$delta] = array(
-        //       '#markup' => $item->get('isbn_13')->getValue(),
-        '#markup' => $item->isbn_13,
+        '#markup' => $item->get($name)->getValue(),
       );
     }
 

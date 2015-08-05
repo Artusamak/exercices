@@ -17,7 +17,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   id = "remote_poster",
  *   label = @Translation("Remote Poster"),
  *   field_types = {
- *     "string"
+ *     "string",
+ *     "isbn"
  *   },
  *   quickedit = {
  *     "editor" = "plain_text"
@@ -128,10 +129,13 @@ class RemotePoster extends FormatterBase implements ContainerFactoryPluginInterf
 
     foreach ($entities_items as $items) {
       foreach ($items as $item) {
-        if ($item->value) {
+        $name = $item->mainPropertyName();
+        if ($item->get($name)->getValue()) {
           $plugin_id = $this->getSetting('cover_source');
           $RemotePosterWS = $this->remote_poster_plugin_manager->createInstance($plugin_id);
-          $item->value = $RemotePosterWS->getCover($item->value);
+          // Get the name of the main property of the field.
+          $name = $item->mainPropertyName();
+          $item->value = $RemotePosterWS->getCover($item->get($name)->getValue());
         }
       }
     }
@@ -141,11 +145,9 @@ class RemotePoster extends FormatterBase implements ContainerFactoryPluginInterf
    * This method is the wrapper for the formatter.
    */
   public function view(FieldItemListInterface $items) {
+    $elements = parent::view($items);
     $types = $this->getRemoteTypes();
-    $elements['cover_source'] = array(
-      '#markup' => '<p>The cover source is: ' . $types[$this->settings['cover_source']] . '</p>',
-    );
-    $elements['images'] = $this->viewElements($items);
+    $elements['#prefix'] = '<p>The cover source is: ' . $types[$this->settings['cover_source']] . '</p>';
     return $elements;
   }
 
