@@ -45,13 +45,13 @@ class IsbnItem extends FieldItemBase {
     return array(
       'columns' => array(
         'isbn_13' => array(
-          'description' => 'The isbn number with 10 digits.',
+          'description' => 'The isbn number with 13 digits.',
           'type' => 'varchar',
           'length' => 13,
           'not null' => FALSE,
         ),
         'isbn_10' => array(
-          'description' => 'The isbn number with 13 digits.',
+          'description' => 'The isbn number with 10 digits.',
           'type' => 'varchar',
           'length' => 10,
           'not null' => FALSE,
