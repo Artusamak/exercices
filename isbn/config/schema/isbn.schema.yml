@@ -5,7 +5,7 @@ field.formatter.settings.isbn:
   label: 'Isbn format settings'
   mapping:
     separated_display:
-      type: string
+      type: boolean
       label: 'Separator use in display'
 
 field.widget.settings.isbn_default:
@@ -14,10 +14,10 @@ field.widget.settings.isbn_default:
   mapping:
     placeholder_isbn_10:
       type: string
-      label: 'Placeholder for ISBN-10'
+      label: 'Placeholder for ISBN 10'
     placeholder_isbn_13:
       type: string
-      label: 'Placeholder for ISBN-13'
+      label: 'Placeholder for ISBN 13'
 
 field.storage_settings.isbn:
   type: mapping

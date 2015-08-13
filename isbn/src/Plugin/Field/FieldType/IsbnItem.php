@@ -30,10 +30,14 @@ class IsbnItem extends FieldItemBase {
    */
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
     $properties['isbn_13'] = DataDefinition::create('string')
-      ->setLabel(t('ISBN-13'));
+      ->setLabel(t('ISBN-13'))
+      ->addConstraint('Length', array('max' => 13, 'min' => 13))
+      ->setDescription(t('The 13 chars long version of the ISBN.'));
 
     $properties['isbn_10'] = DataDefinition::create('string')
-      ->setLabel(t('ISBN-10'));
+      ->setLabel(t('ISBN-10'))
+      ->addConstraint('Length', array('max' => 10, 'min' => 10))
+      ->setDescription(t('The 10 chars long version of the ISBN.'));
 
     return $properties;
   }
@@ -48,13 +52,11 @@ class IsbnItem extends FieldItemBase {
           'description' => 'The isbn number with 13 digits.',
           'type' => 'varchar',
           'length' => 13,
-          'not null' => FALSE,
         ),
         'isbn_10' => array(
           'description' => 'The isbn number with 10 digits.',
           'type' => 'varchar',
           'length' => 10,
-          'not null' => FALSE,
         ),
       ),
     );
