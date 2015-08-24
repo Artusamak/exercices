@@ -80,7 +80,7 @@ class IsbnItem extends FieldItemBase {
    */
   public function isEmpty() {
     $value = $this->get('isbn_13')->getValue();
-    return $value === NULL || $value === '';
+    return empty($value);
   }
 
   /**
