@@ -1,8 +1,9 @@
 services:
-  # This code is used in the exercise about services. It become useless once
+  # This declaration is used in the exercise about services. It become useless once
   # the RemotePoster Plugin type is created.
-  happy_formatter.get_cover_service:
+  happy_alexandrie.get_cover_service:
     class: Drupal\happy_alexandrie\Service\GetCoverService
+  # This declaration replace the basic service defined just before
   plugin.manager.happy_alexandrie.remote_poster:
     class: Drupal\happy_alexandrie\RemotePosterWSPluginManager
     parent: default_plugin_manager

@@ -21,11 +21,15 @@ interface GetCoverServiceInterface {
    */
   public function fetchResponse();
 
+
   /**
    * Helper function to get a cover.
    *
+   * @param $url
+   *   An url of the service to access to get the cover.
+   * @return string
    *   An url of the image cover.
    */
-  public function getCover();
+  public function getCover($url);
 
 }

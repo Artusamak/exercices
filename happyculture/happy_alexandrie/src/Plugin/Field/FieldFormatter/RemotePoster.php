@@ -35,7 +35,7 @@ class RemotePoster extends FormatterBase implements ContainerFactoryPluginInterf
   protected $remote_poster_plugin_manager;
 
   /**
-   * Constructs a TimestampAgoFormatter object.
+   * Constructs a RemotePoster object.
    *
    * @param string $plugin_id
    *   The plugin_id for the formatter.

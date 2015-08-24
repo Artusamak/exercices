@@ -32,7 +32,13 @@ class RemotePosterWSPluginManager extends DefaultPluginManager {
    *   The module handler to invoke the alter hook with.
    */
   public function __construct(\Traversable $namespaces, CacheBackendInterface $cache_backend, ModuleHandlerInterface $module_handler) {
-    parent::__construct('Plugin/RemotePosterWS', $namespaces, $module_handler, 'Drupal\happy_alexandrie\RemotePosterWSInterface', 'Drupal\happy_alexandrie\Annotation\RemotePosterWS');
+    parent::__construct(
+      'Plugin/RemotePosterWS',
+      $namespaces,
+      $module_handler,
+      'Drupal\happy_alexandrie\RemotePosterWSInterface',
+      'Drupal\happy_alexandrie\Annotation\RemotePosterWS'
+    );
 
     $this->alterInfo('remote_poster_info');
     $this->setCacheBackend($cache_backend, 'remote_poster_plugins');

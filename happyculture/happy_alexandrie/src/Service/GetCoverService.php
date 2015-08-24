@@ -17,7 +17,7 @@ use GuzzleHttp\Client;
  *
  * @package Drupal\happy_alexandrie\Service
  */
-class GetCoverService {
+class GetCoverService implements GetCoverServiceInterface {
 
   /**
    * The webservice response.
@@ -36,13 +36,15 @@ class GetCoverService {
   /**
    * @param string $webservice_url
    */
-  public function setWebserviceUrl($webservice_url) {
+  private function setWebserviceUrl($webservice_url) {
     $this->webservice_url = $webservice_url;
   }
 
   /**
    * Helper function to get a cover.
    *
+   * @param $url
+   *   An url of the service to access to get the cover.
    * @return string
    *   An url of the image cover.
    */
