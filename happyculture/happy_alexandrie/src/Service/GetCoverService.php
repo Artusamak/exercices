@@ -10,7 +10,8 @@
 
 namespace Drupal\happy_alexandrie\Service;
 
-use GuzzleHttp\Client;
+use Drupal\Component\Utility\SafeMarkup;
+use Drupal\Core\Url;
 
 /**
  * Class GetCoverService.
@@ -18,14 +19,6 @@ use GuzzleHttp\Client;
  * @package Drupal\happy_alexandrie\Service
  */
 class GetCoverService implements GetCoverServiceInterface {
-
-  /**
-   * The webservice response.
-   *
-   * @var array
-   */
-  protected $response;
-
   /**
    * The webservice url.
    *
@@ -34,40 +27,22 @@ class GetCoverService implements GetCoverServiceInterface {
   protected $webservice_url;
 
   /**
-   * @param string $webservice_url
+   * GetCoverService constructor.
    */
-  private function setWebserviceUrl($webservice_url) {
-    $this->webservice_url = $webservice_url;
+  public function __construct() {
+    $this->base_webservice_url = 'http://covers.openlibrary.org/b/isbn/!param-L.jpg';
   }
 
   /**
    * Helper function to get a cover.
    *
-   * @param $url
-   *   An url of the service to access to get the cover.
+   * @param $param
+   *   A parameter used by the service to get the cover.
    * @return string
    *   An url of the image cover.
    */
-  public function getCover($url) {
-    $this->setWebserviceUrl($url);
-    try {
-      $this->fetchResponse();
-    } catch (\Exception $e) {
-      // If an error occurred just reset the field value.
-      return FALSE;
-    };
-    // Trick the API result to get a decent size of the book cover.
-    $cover = str_replace('zoom=1', 'zoom=2', $this->response['items'][0]['volumeInfo']['imageLinks']['thumbnail']);
-    return $cover;
-  }
-
-  /**
-   * Helper function to fetch a result from the webservice.
-   *
-   */
-  public function fetchResponse() {
-    $client = new Client();
-    $response = $client->get($this->webservice_url);
-    $this->response = $response->json();
+  public function getCover($param) {
+    $url = SafeMarkup::format($this->base_webservice_url, array('!param' => $param));
+    return  Url::fromUri($url);
   }
 }

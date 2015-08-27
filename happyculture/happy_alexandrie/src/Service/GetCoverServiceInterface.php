@@ -16,20 +16,12 @@ namespace Drupal\happy_alexandrie\Service;
 interface GetCoverServiceInterface {
 
   /**
-   * Helper function to fetch a result from the webservice.
-   *
-   */
-  public function fetchResponse();
-
-
-  /**
    * Helper function to get a cover.
    *
-   * @param $url
-   *   An url of the service to access to get the cover.
+   * @param $param
+   *   A parameter used by the service to get the cover.
    * @return string
    *   An url of the image cover.
    */
-  public function getCover($url);
-
+  public function getCover($param);
 }
