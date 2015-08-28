@@ -13,7 +13,6 @@ use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\happy_alexandrie\authorEntityInterface;
 use Drupal\user\UserInterface;
-use Drupal\Core\Field\FieldStorageDefinitionInterface;
 
 /**
  * Defines the AuthorEntity entity.
