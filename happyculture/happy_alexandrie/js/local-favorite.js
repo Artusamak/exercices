@@ -5,8 +5,7 @@
   Drupal.HC = Drupal.HC || {};
   Drupal.HC.Training = Drupal.HC.Training || {};
 
-  // Function that create the favorite block.
-  Drupal.HC.Training.createBlockContent = function createBlockContent(localFavsData) {
+  Drupal.theme.hcBlockContent = function (localFavsData) {
     var block = document.createElement('div');
     block.setAttribute('class', 'block');
     block.setAttribute('id', 'block-favorite');
@@ -51,7 +50,7 @@
         }
         localFavsData.push(newFav);
         localStorage.setItem('Drupal.localFavs', JSON.stringify(localFavsData));
-        var block = Drupal.HC.Training.createBlockContent(localFavsData);
+        var block = Drupal.theme('hcBlockContent', localFavsData);
         $('#sidebar-first .region-sidebar-first #block-favorite').remove();
         $('#sidebar-first .region-sidebar-first').append(block);
       });
@@ -68,7 +67,7 @@
       if (localFavsSerial) {
         var localFavsData = JSON.parse(localFavsSerial);
         if (!document.getElementById('block-favorite')) {
-          var block = Drupal.HC.Training.createBlockContent(localFavsData);
+          var block = Drupal.theme('hcBlockContent', localFavsData);
           $('#sidebar-first .region-sidebar-first').append(block);
         }
       }
