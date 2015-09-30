@@ -34,12 +34,12 @@
       var text = document.createTextNode('favorite');
       var link = document.createElement('a');
       link.setAttribute('href', '#');
-      link.setAttribute('class', 'localfav');
+      link.setAttribute('class', 'js-localfav');
       link.appendChild(text);
-      $('article .node__title:not(.favorite-processed)').before(link).addClass('favorite-processed');
+      $('article .node__title:not(.js-favorite-processed)').before(link).addClass('js-favorite-processed');
 
       // Bind event to store favorite in the localStorage.
-      $('.localfav').click(function () {
+      $('.js-localfav').once().click(function () {
         var newFav = $(this).next('.node__title').html();
         var localFavsSerial = localStorage.getItem('Drupal.localFavs');
         if (localFavsSerial == null) {
