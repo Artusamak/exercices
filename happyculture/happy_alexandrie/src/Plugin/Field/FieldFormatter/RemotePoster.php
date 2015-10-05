@@ -159,7 +159,8 @@ class RemotePoster extends FormatterBase implements ContainerFactoryPluginInterf
         // Part calling a theme function.
         $elements[$delta] = array(
           '#theme' => 'happy_poster',
-          '#movie_id' => $item->value,
+          '#cover_url' => $item->value,
+          '#work_title' => $items->getEntity()->label(),
         );
       }
     }

@@ -37,7 +37,7 @@ function happy_alexandrie_theme() {
   );
 
   $theme['happy_poster'] = array(
-    'variables' => array('movie_id' => FALSE),
+    'variables' => array('cover_url' => '', 'work_title' => ''),
     'template' => 'happy-poster',
   );
 
