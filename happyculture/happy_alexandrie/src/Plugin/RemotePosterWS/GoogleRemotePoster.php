@@ -80,8 +80,12 @@ class GoogleRemotePoster extends RemotePosterWSPluginBase {
    *   An url of the image cover.
    */
   protected function extractCover() {
-    // Trick the API result to get a decent size of the book cover.
-    return str_replace('zoom=1', 'zoom=2', $this->response['items'][0]['volumeInfo']['imageLinks']['thumbnail']);
+    if (!empty($this->response['items'][0]['volumeInfo']['imageLinks']['thumbnail'])) {
+      // Trick the API result to get a decent size of the book cover.
+      return str_replace('zoom=1', 'zoom=2', $this->response['items'][0]['volumeInfo']['imageLinks']['thumbnail']);
+    }
+
+    return FALSE;
   }
 
   /**
