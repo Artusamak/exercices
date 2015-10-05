@@ -7,6 +7,7 @@
 
 namespace Drupal\happy_alexandrie\Plugin\RemotePosterWS;
 
+use Drupal\Component\Serialization\Json;
 use Drupal\happy_alexandrie\RemotePosterWSPluginBase;
 use GuzzleHttp\Client;
 use Drupal\Core\Url;
@@ -89,6 +90,6 @@ class GoogleRemotePoster extends RemotePosterWSPluginBase {
   protected function fetchResponse() {
     $client = new Client();
     $response = $client->get($this->webservice_url_with_parameters->toString());
-    $this->response = $response->json();
+    $this->response = Json::decode($response->getBody()->getContents());
   }
 }
