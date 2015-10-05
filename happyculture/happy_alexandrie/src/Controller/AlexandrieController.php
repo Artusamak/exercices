@@ -53,7 +53,7 @@ class AlexandrieController extends ControllerBase {
   public function helloWorld(EntityViewModeInterface $viewmode) {
     $content = [
       '#type' => 'markup',
-      '#markup' => $this->t('Hello world bitch!')
+      '#markup' => $this->t('Hello world!')
     ];
 
     // Second version displaying the opening hours of the library.

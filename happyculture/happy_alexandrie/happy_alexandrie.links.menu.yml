@@ -10,11 +10,12 @@ author_entity.admin.structure.settings:
   route_name:  author_entity.settings
   parent: system.admin_structure
 
-happy_alexandrie.simple_welcome_controller:
+# Basic link item
+happy_alexandrie.query_welcome_controller:
   title: 'Visit the library'
   menu_name: tools
   description: 'Visit the library'
-  route_name: happy_alexandrie.simple_welcome_controller
+  route_name: happy_alexandrie.query_welcome_controller
   weight: 1
 
 # Basic Configuration items

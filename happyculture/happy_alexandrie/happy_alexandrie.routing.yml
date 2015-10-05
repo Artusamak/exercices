@@ -77,22 +77,27 @@ happy_alexandrie.config_library_information:
     _permission: 'administer site configuration'
 
 # NORMAL ROUTES -------------------------------
-# Displays the welcome message.
-happy_alexandrie.simple_welcome_controller:
-  path: '/welcome/{viewmode}'
+# Displays the basic welcome message.
+happy_alexandrie.welcome_controller:
+  path: '/welcome'
   defaults:
-    _controller: '\Drupal\happy_alexandrie\Controller\AlexandrieController::helloWorld'
+    _controller: '\Drupal\happy_alexandrie\Controller\AlexandrieController::hello'
     _title: 'Welcome Title'
-    viewmode: 'node.teaser'
   requirements:
-    _permission: 'access alexandrie library'
-  options:
-    parameters:
-      viewmode:
-        type: entity:entity_view_mode
+    _permission: 'access content'
+
+# Displays the welcome message to a specific username.
+happy_alexandrie.dynamic_welcome_controller:
+  path: '/welcome/name/{name}'
+  defaults:
+    _controller: '\Drupal\happy_alexandrie\Controller\AlexandrieController::hello'
+    _title: 'Welcome Title'
+    name: 'world'
+  requirements:
+    _permission: 'access content'
 
 # Displays the welcome message if you access during the opening hours.
-happy_alexandrie.welcome_timelimited_access:
+happy_alexandrie.timelimited_access_welcome_controller:
   path: '/welcome-limited'
   defaults:
     _controller: '\Drupal\happy_alexandrie\Controller\AlexandrieController::helloWorld'
@@ -101,31 +106,13 @@ happy_alexandrie.welcome_timelimited_access:
     _custom_access: '\Drupal\happy_alexandrie\Controller\AlexandrieAccess::accessLibrary'
     _permission: 'access alexandrie library'
 
-# Displays the welcome message to a specific username.
-happy_alexandrie.dynamic_welcome_controller:
-  path: '/welcome/{name}'
+# Displays the welcome message.
+happy_alexandrie.query_welcome_controller:
+  path: '/welcome/mode/{viewmode}'
   defaults:
-    _controller: '\Drupal\happy_alexandrie\Controller\AlexandrieController::hello'
+    _controller: '\Drupal\happy_alexandrie\Controller\AlexandrieController::helloWorld'
     _title: 'Welcome Title'
-    name: 'world'
-  requirements:
-    _permission: 'access content'
-
-happy_alexandrie.query:
-  path: 'happy/query'
-  defaults:
-    _controller: '\Drupal\happy_alexandrie\Controller\HappyQueryController::query'
-    _title: 'Happy Query'
-  requirements:
-    _permission: 'access alexandrie library'
-
-
-happy_alexandrie.view_mode:
-  # Pass an additional variable that will be available in our method.
-  path: 'happy/query/{viewmode}'
-  defaults:
-    _controller: '\Drupal\happy_alexandrie\Controller\HappyQueryController::query_mode'
-    _title: 'Happy Query by view mode'
+    viewmode: 'node.teaser'
   requirements:
     _permission: 'access alexandrie library'
   options:
