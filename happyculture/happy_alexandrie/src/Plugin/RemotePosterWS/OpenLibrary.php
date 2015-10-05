@@ -56,6 +56,6 @@ class OpenLibrary extends RemotePosterWSPluginBase {
    */
   public function getCover($param) {
     $this->buildWebserviceUrl($param);
-    return $this->webservice_url_with_parameters;
+    return $this->webservice_url_with_parameters->toString();
   }
 }
