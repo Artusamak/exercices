@@ -114,7 +114,7 @@ class RemotePoster extends FormatterBase implements ContainerFactoryPluginInterf
    */
   public static function defaultSettings() {
     return array(
-      'cover_source' => 'movie',
+      'cover_source' => 'openlibrary_remote_poster',
     ) + parent::defaultSettings();
   }
 
@@ -126,13 +126,12 @@ class RemotePoster extends FormatterBase implements ContainerFactoryPluginInterf
    * that we want to display.
    */
   public function prepareView(array $entities_items) {
-
+    $plugin_id = $this->getSetting('cover_source');
+    $RemotePosterWS = $this->remote_poster_plugin_manager->createInstance($plugin_id);
     foreach ($entities_items as $items) {
       foreach ($items as $item) {
         $name = $item->mainPropertyName();
         if ($item->get($name)->getValue()) {
-          $plugin_id = $this->getSetting('cover_source');
-          $RemotePosterWS = $this->remote_poster_plugin_manager->createInstance($plugin_id);
           // Get the name of the main property of the field.
           $name = $item->mainPropertyName();
           $item->value = $RemotePosterWS->getCover($item->get($name)->getValue());
