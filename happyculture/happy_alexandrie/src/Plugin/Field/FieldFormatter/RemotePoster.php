@@ -133,7 +133,6 @@ class RemotePoster extends FormatterBase implements ContainerFactoryPluginInterf
         $name = $item->mainPropertyName();
         if ($item->get($name)->getValue()) {
           // Get the name of the main property of the field.
-          $name = $item->mainPropertyName();
           $item->value = $RemotePosterWS->getCover($item->get($name)->getValue());
         }
       }
