@@ -70,7 +70,7 @@ class IsbnFormatter extends FormatterBase {
   /**
    * {@inheritdoc}
    */
-  public function viewElements(FieldItemListInterface $items) {
+  public function viewElements(FieldItemListInterface $items, $langcode = NULL) {
     $elements = array();
 
     foreach ($items as $delta => $item) {
