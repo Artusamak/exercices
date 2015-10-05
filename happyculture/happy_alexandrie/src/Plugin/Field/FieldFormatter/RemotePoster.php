@@ -144,7 +144,7 @@ class RemotePoster extends FormatterBase implements ContainerFactoryPluginInterf
   /**
    * This method is the wrapper for the formatter.
    */
-  public function view(FieldItemListInterface $items) {
+  public function view(FieldItemListInterface $items, $langcode = NULL) {
     $elements = parent::view($items);
     $types = $this->getRemoteTypes();
     $elements['#prefix'] = '<p>The cover source is: ' . $types[$this->settings['cover_source']] . '</p>';
@@ -154,7 +154,7 @@ class RemotePoster extends FormatterBase implements ContainerFactoryPluginInterf
   /**
    * This method is the wrapper for each field value.
    */
-  public function viewElements(FieldItemListInterface $items) {
+  public function viewElements(FieldItemListInterface $items, $langcode = NULL) {
     $elements = array();
     foreach ($items as $delta => $item) {
       if ($item->value) {
