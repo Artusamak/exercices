@@ -88,7 +88,7 @@ class GoogleRemotePoster extends RemotePosterWSPluginBase {
    */
   protected function fetchResponse() {
     $client = new Client();
-    $response = $client->get($this->webservice_url_with_parameters);
+    $response = $client->get($this->webservice_url_with_parameters->toString());
     $this->response = $response->json();
   }
 }
