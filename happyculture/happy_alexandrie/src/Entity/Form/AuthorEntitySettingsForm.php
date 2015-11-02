@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains Drupal\happy_alexandrie\Entity\Form\authorEntitySettingsForm.
+ * Contains Drupal\happy_alexandrie\Entity\Form\AuthorEntitySettingsForm.
  */
 
 namespace Drupal\happy_alexandrie\Entity\Form;
@@ -11,13 +11,13 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Class authorEntitySettingsForm.
+ * Class AuthorEntitySettingsForm.
+ *
  * @package Drupal\happy_alexandrie\Form
+ *
  * @ingroup happy_alexandrie
  */
-class authorEntitySettingsForm extends FormBase {
-
-
+class AuthorEntitySettingsForm extends FormBase {
   /**
    * Returns a unique string identifying the form.
    *
@@ -25,7 +25,7 @@ class authorEntitySettingsForm extends FormBase {
    *   The unique string identifying the form.
    */
   public function getFormId() {
-    return 'authorEntity_settings';
+    return 'AuthorEntity_settings';
   }
 
   /**
@@ -33,8 +33,8 @@ class authorEntitySettingsForm extends FormBase {
    *
    * @param array $form
    *   An associative array containing the structure of the form.
-   * @param array $form_state
-   *   An associative array containing the current state of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     // Empty implementation of the abstract submit class.
@@ -42,17 +42,19 @@ class authorEntitySettingsForm extends FormBase {
 
 
   /**
-   * Define the form used for AuthorEntity  settings.
-   * @return array
-   *   Form definition array.
+   * Defines the settings form for Author entities.
    *
    * @param array $form
    *   An associative array containing the structure of the form.
-   * @param array $form_state
-   *   An associative array containing the current state of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   *
+   * @return array
+   *   Form definition array.
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $form['authorEntity_settings']['#markup'] = 'Settings form for AuthorEntity. Manage field settings here.';
+    $form['AuthorEntity_settings']['#markup'] = 'Settings form for Author entities. Manage field settings here.';
     return $form;
   }
+
 }

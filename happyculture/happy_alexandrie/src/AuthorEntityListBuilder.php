@@ -2,28 +2,29 @@
 
 /**
  * @file
- * Contains Drupal\happy_alexandrie\Entity\Controller\authorEntityListController.
+ * Contains Drupal\happy_alexandrie\AuthorEntityListBuilder.
  */
 
-namespace Drupal\happy_alexandrie\Entity\Controller;
+namespace Drupal\happy_alexandrie;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
+use Drupal\Core\Routing\LinkGeneratorTrait;
 use Drupal\Core\Url;
 
 /**
- * Provides a list controller for AuthorEntity entity.
+ * Defines a class to build a listing of Author entities.
  *
  * @ingroup happy_alexandrie
  */
-class authorEntityListController extends EntityListBuilder {
-
+class AuthorEntityListBuilder extends EntityListBuilder {
+  use LinkGeneratorTrait;
   /**
    * {@inheritdoc}
    */
   public function buildHeader() {
-    $header['id'] = t('authorEntityID');
-    $header['name'] = t('Name');
+    $header['id'] = $this->t('Author ID');
+    $header['name'] = $this->t('Name');
     return $header + parent::buildHeader();
   }
 
@@ -33,14 +34,15 @@ class authorEntityListController extends EntityListBuilder {
   public function buildRow(EntityInterface $entity) {
     /* @var $entity \Drupal\happy_alexandrie\Entity\AuthorEntity */
     $row['id'] = $entity->id();
-    $row['name'] = \Drupal::l(
+    $row['name'] = $this->l(
       $this->getLabel($entity),
       new Url(
-        'entity.author_entity.canonical', array(
+        'entity.author_entity.edit_form', array(
           'author_entity' => $entity->id(),
         )
       )
     );
     return $row + parent::buildRow($entity);
   }
+
 }

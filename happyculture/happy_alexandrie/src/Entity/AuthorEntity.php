@@ -10,12 +10,13 @@ namespace Drupal\happy_alexandrie\Entity;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
+use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\happy_alexandrie\authorEntityInterface;
+use Drupal\happy_alexandrie\AuthorEntityInterface;
 use Drupal\user\UserInterface;
 
 /**
- * Defines the AuthorEntity entity.
+ * Defines the Author entity.
  *
  * @ingroup happy_alexandrie
  *
@@ -24,19 +25,19 @@ use Drupal\user\UserInterface;
  *   label = @Translation("Author"),
  *   handlers = {
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
- *     "list_builder" = "Drupal\happy_alexandrie\Entity\Controller\authorEntityListController",
- *     "views_data" = "Drupal\happy_alexandrie\Entity\authorEntityViewsData",
+ *     "list_builder" = "Drupal\happy_alexandrie\AuthorEntityListBuilder",
+ *     "views_data" = "Drupal\happy_alexandrie\Entity\AuthorEntityViewsData",
  *
  *     "form" = {
- *       "add" = "Drupal\happy_alexandrie\Entity\Form\authorEntityForm",
- *       "edit" = "Drupal\happy_alexandrie\Entity\Form\authorEntityForm",
- *       "delete" = "Drupal\happy_alexandrie\Entity\Form\authorEntityDeleteForm",
+ *       "default" = "Drupal\happy_alexandrie\Entity\Form\AuthorEntityForm",
+ *       "add" = "Drupal\happy_alexandrie\Entity\Form\AuthorEntityForm",
+ *       "edit" = "Drupal\happy_alexandrie\Entity\Form\AuthorEntityForm",
+ *       "delete" = "Drupal\happy_alexandrie\Entity\Form\AuthorEntityDeleteForm",
  *     },
- *     "access" = "Drupal\happy_alexandrie\authorEntityAccessControlHandler",
+ *     "access" = "Drupal\happy_alexandrie\AuthorEntityAccessControlHandler",
  *   },
  *   base_table = "author_entity",
  *   admin_permission = "administer AuthorEntity entity",
- *   fieldable = TRUE,
  *   entity_keys = {
  *     "id" = "id",
  *     "label" = "full_name",
@@ -47,10 +48,11 @@ use Drupal\user\UserInterface;
  *     "edit-form" = "/admin/author_entity/{author_entity}/edit",
  *     "delete-form" = "/admin/author_entity/{author_entity}/delete"
  *   },
- *   field_ui_base_route = "/admin/structure/author_entity"
+ *   field_ui_base_route = "author_entity.settings"
  * )
  */
-class AuthorEntity extends ContentEntityBase implements authorEntityInterface {
+class AuthorEntity extends ContentEntityBase implements AuthorEntityInterface {
+  use EntityChangedTrait;
   /**
    * {@inheritdoc}
    */
@@ -66,13 +68,6 @@ class AuthorEntity extends ContentEntityBase implements authorEntityInterface {
    */
   public function getCreatedTime() {
     return $this->get('created')->value;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getChangedTime() {
-    return $this->get('changed')->value;
   }
 
   /**
@@ -111,17 +106,17 @@ class AuthorEntity extends ContentEntityBase implements authorEntityInterface {
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
     $fields['id'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('ID'))
-      ->setDescription(t('The ID of the AuthorEntity entity.'))
+      ->setDescription(t('The ID of the Author entity.'))
       ->setReadOnly(TRUE);
 
     $fields['uuid'] = BaseFieldDefinition::create('uuid')
       ->setLabel(t('UUID'))
-      ->setDescription(t('The UUID of the AuthorEntity entity.'))
+      ->setDescription(t('The UUID of the Author entity.'))
       ->setReadOnly(TRUE);
 
     $fields['user_id'] = BaseFieldDefinition::create('entity_reference')
-      ->setLabel(t('Owner'))
-      ->setDescription(t('The user ID of the AuthorEntity entity creator.'))
+      ->setLabel(t('Authored by'))
+      ->setDescription(t('The user ID of author of the Author entity.'))
       ->setRevisionable(TRUE)
       ->setSetting('target_type', 'user')
       ->setSetting('handler', 'default')
@@ -146,45 +141,21 @@ class AuthorEntity extends ContentEntityBase implements authorEntityInterface {
       ->setDisplayConfigurable('view', TRUE);
 
     $fields['full_name'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('Full Name'))
-      ->setDescription(t('The full name of the AuthorEntity entity.'))
+      ->setLabel(t('Full name'))
+      ->setDescription(t('The Full name of the Author entity.'))
       ->setSettings(array(
-        'default_value' => '',
         'max_length' => 50,
         'text_processing' => 0,
       ))
+      ->setDefaultValue('')
       ->setDisplayOptions('view', array(
         'label' => 'above',
         'type' => 'string',
         'weight' => -4,
       ))
       ->setDisplayOptions('form', array(
-        'type' => 'string',
+        'type' => 'string_textfield',
         'weight' => -4,
-      ))
-      ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayConfigurable('view', TRUE);
-
-    $fields['aka_author_id'] = BaseFieldDefinition::create('entity_reference')
-      ->setLabel(t('aka of author'))
-      ->setDescription(t('The real author ID of this author.'))
-      ->setRevisionable(TRUE)
-      ->setSetting('target_type', 'author_entity')
-      ->setSetting('handler', 'default')
-      ->setDisplayOptions('view', array(
-        'label' => 'hidden',
-        'type' => 'author',
-        'weight' => 0,
-      ))
-      ->setDisplayOptions('form', array(
-        'type' => 'entity_reference_autocomplete',
-        'weight' => 5,
-        'settings' => array(
-          'match_operator' => 'CONTAINS',
-          'size' => '60',
-          'autocomplete_type' => 'tags',
-          'placeholder' => '',
-        ),
       ))
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
@@ -203,7 +174,45 @@ class AuthorEntity extends ContentEntityBase implements authorEntityInterface {
         'weight' => -4,
       ))
       ->setDisplayOptions('form', array(
-        'type' => 'string',
+        'type' => 'string_textfield',
+         'weight' => -4,
+      ))
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['birthdate'] = BaseFieldDefinition::create('datetime')
+      ->setLabel(t('Birth date'))
+      ->setDescription(t('The birth date the Author entity.'))
+      ->setSetting('datetime_type', 'date')
+      ->setDisplayOptions('view', array(
+        'label' => 'above',
+        'type' => 'datetime_default',
+        'settings' => array(
+          'format_type' => 'html_date',
+        ),
+        'weight' => -4,
+      ))
+      ->setDisplayOptions('form', array(
+        'type' => 'datetime_default',
+        'weight' => -4,
+      ))
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['deathdate'] = BaseFieldDefinition::create('datetime')
+      ->setLabel(t('Death date'))
+      ->setDescription(t('The death date the Author entity.'))
+      ->setSetting('datetime_type', 'date')
+      ->setDisplayOptions('view', array(
+        'label' => 'above',
+        'type' => 'datetime_default',
+        'settings' => array(
+          'format_type' => 'html_date',
+        ),
+        'weight' => -4,
+      ))
+      ->setDisplayOptions('form', array(
+        'type' => 'datetime_default',
         'weight' => -4,
       ))
       ->setDisplayConfigurable('form', TRUE)
@@ -211,7 +220,7 @@ class AuthorEntity extends ContentEntityBase implements authorEntityInterface {
 
     $fields['langcode'] = BaseFieldDefinition::create('language')
       ->setLabel(t('Language code'))
-      ->setDescription(t('The language code of AuthorEntity entity.'));
+      ->setDescription(t('The language code for the Author entity.'));
 
     $fields['created'] = BaseFieldDefinition::create('created')
       ->setLabel(t('Created'))
@@ -223,4 +232,5 @@ class AuthorEntity extends ContentEntityBase implements authorEntityInterface {
 
     return $fields;
   }
+
 }

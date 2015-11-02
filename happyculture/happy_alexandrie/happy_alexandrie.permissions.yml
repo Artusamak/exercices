@@ -1,3 +1,19 @@
 access alexandrie library:
   title: 'Access to the happy library listing'
   description: 'List the book inside the library.'
+
+add author entities:
+  title: 'Create new Author entities'
+
+administer author entities:
+  title: 'Administer Author entities'
+  description: 'Allow to access the administration form to configure Author entities.'
+
+delete author entities:
+  title: 'Delete Author entities'
+
+edit author entities:
+  title: 'Edit Author entities'
+
+view author entities:
+  title: 'View Author entities'

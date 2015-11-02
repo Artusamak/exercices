@@ -11,11 +11,9 @@ use Drupal\views\EntityViewsData;
 use Drupal\views\EntityViewsDataInterface;
 
 /**
- * Provides the views data for the AuthorEntity entity type.
+ * Provides Views data for Author entities.
  */
-class authorEntityViewsData extends EntityViewsData implements EntityViewsDataInterface {
-
-
+class AuthorEntityViewsData extends EntityViewsData implements EntityViewsDataInterface {
   /**
    * {@inheritdoc}
    */
@@ -24,12 +22,11 @@ class authorEntityViewsData extends EntityViewsData implements EntityViewsDataIn
 
     $data['author_entity']['table']['base'] = array(
       'field' => 'id',
-      'title' => t('AuthorEntity'),
-      'help' => t('The author_entity entity ID.'),
+      'title' => $this->t('Author'),
+      'help' => $this->t('The Author ID.'),
     );
 
     return $data;
   }
-
 
 }

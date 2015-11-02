@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains Drupal\happy_alexandrie\Entity\Form\authorEntityDeleteForm.
+ * Contains Drupal\happy_alexandrie\Entity\Form\AuthorEntityDeleteForm.
  */
 
 namespace Drupal\happy_alexandrie\Entity\Form;
@@ -12,32 +12,30 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 
 /**
- * Provides a form for deleting a AuthorEntity entity.
+ * Provides a form for deleting Author entities.
  *
  * @ingroup happy_alexandrie
  */
-class authorEntityDeleteForm extends ContentEntityConfirmFormBase {
-
-
+class AuthorEntityDeleteForm extends ContentEntityConfirmFormBase {
   /**
    * {@inheritdoc}
    */
   public function getQuestion() {
-    return t('Are you sure you want to delete entity %name?', array('%name' => $this->entity->label()));
+    return $this->t('Are you sure you want to delete entity %name?', array('%name' => $this->entity->label()));
   }
 
   /**
    * {@inheritdoc}
    */
   public function getCancelUrl() {
-    return new Url('entity.author_entity.list');
+    return new Url('entity.author_entity.collection');
   }
 
   /**
    * {@inheritdoc}
    */
   public function getConfirmText() {
-    return t('Delete');
+    return $this->t('Delete');
   }
 
   /**
@@ -52,8 +50,10 @@ class authorEntityDeleteForm extends ContentEntityConfirmFormBase {
           '@type' => $this->entity->bundle(),
           '@label' => $this->entity->label()
         ]
-      ));
+        )
+    );
 
     $form_state->setRedirectUrl($this->getCancelUrl());
   }
+
 }

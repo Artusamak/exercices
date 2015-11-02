@@ -1,52 +1,62 @@
 # ADMIN ROUTES -------------------------------
-# authorEntity routing definition
+# AuthorEntity routing definition
 entity.author_entity.canonical:
   path: '/author_entity/{author_entity}'
   defaults:
     _entity_view: 'author_entity'
-    _title: 'AuthorEntity Content'
+    _title: 'Author'
   requirements:
     _entity_access: 'author_entity.view'
 
-entity.author_entity.list:
+entity.author_entity.collection:
   path: '/admin/author_entity'
   defaults:
     _entity_list: 'author_entity'
-    _title: 'AuthorEntity List'
+    _title: 'Author list'
   requirements:
-    _permission: 'view AuthorEntity entity'
+    _permission: 'view author entities'
+  options:
+    _admin_route: TRUE
 
 entity.author_entity.add_form:
   path: '/admin/author_entity/add'
   defaults:
     _entity_form: author_entity.add
-    _title: 'Add AuthorEntity'
+    _title: 'Add Author'
   requirements:
-    _entity_create_access: 'author_entity'
+    _permission: 'add author entities'
+  options:
+    _admin_route: TRUE
 
 entity.author_entity.edit_form:
   path: '/admin/author_entity/{author_entity}/edit'
   defaults:
     _entity_form: author_entity.edit
-    _title: 'Edit AuthorEntity'
+    _title: 'Edit Author'
   requirements:
-    _entity_access: 'author_entity.edit'
+    _permission: 'edit author entities'
+  options:
+    _admin_route: TRUE
 
 entity.author_entity.delete_form:
   path: '/admin/author_entity/{author_entity}/delete'
   defaults:
     _entity_form: author_entity.delete
-    _title: 'Delete AuthorEntity'
+    _title: 'Delete Author'
   requirements:
-    _entity_access: 'author_entity.delete'
+    _permission: 'delete author entities'
+  options:
+    _admin_route: TRUE
 
 author_entity.settings:
   path: '/admin/structure/author_entity'
   defaults:
-   _form: '\Drupal\happy_alexandrie\Entity\Form\authorEntitySettingsForm'
-   _title: 'AuthorEntity Settings'
+   _form: '\Drupal\happy_alexandrie\Entity\Form\AuthorEntitySettingsForm'
+   _title: 'Author settings'
   requirements:
-    _permission: 'administer AuthorEntity entity'
+    _permission: 'administer author entities'
+  options:
+    _admin_route: TRUE
 
 # Basic configuration page
 happy_alexandrie.library_information_simple:

@@ -1,4 +1,4 @@
-# authorEntity routing definition
+# Author routing definition
 author_entity.settings_tab:
   route_name: author_entity.settings
   title: 'Settings'
@@ -18,4 +18,5 @@ entity.author_entity.delete_form:
   route_name:  entity.author_entity.delete_form
   base_route:  entity.author_entity.canonical
   title: Delete
+  weight: 10
 

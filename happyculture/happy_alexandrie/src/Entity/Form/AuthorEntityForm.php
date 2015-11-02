@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains Drupal\happy_alexandrie\Entity\Form\authorEntityForm.
+ * Contains Drupal\happy_alexandrie\Entity\Form\AuthorEntityForm.
  */
 
 namespace Drupal\happy_alexandrie\Entity\Form;
@@ -12,15 +12,13 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Language\Language;
 
 /**
- * Form controller for the AuthorEntity entity edit forms.
+ * Form controller for Author edit forms.
  *
  * @ingroup happy_alexandrie
  */
-class authorEntityForm extends ContentEntityForm {
-
-
+class AuthorEntityForm extends ContentEntityForm {
   /**
-   * Overrides Drupal\Core\Entity\EntityFormController::buildForm().
+   * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     /* @var $entity \Drupal\happy_alexandrie\Entity\AuthorEntity */
@@ -28,7 +26,7 @@ class authorEntityForm extends ContentEntityForm {
     $entity = $this->entity;
 
     $form['langcode'] = array(
-      '#title' => t('Language'),
+      '#title' => $this->t('Language'),
       '#type' => 'language_select',
       '#default_value' => $entity->getUntranslated()->language()->getId(),
       '#languages' => Language::STATE_ALL,
@@ -38,7 +36,7 @@ class authorEntityForm extends ContentEntityForm {
   }
 
   /**
-   * Overrides \Drupal\Core\Entity\EntityFormController::submit().
+   * {@inheritdoc}
    */
   public function submit(array $form, FormStateInterface $form_state) {
     // Build the entity object from the submitted values.
@@ -48,22 +46,25 @@ class authorEntityForm extends ContentEntityForm {
   }
 
   /**
-   * Overrides Drupal\Core\Entity\EntityFormController::save().
+   * {@inheritdoc}
    */
   public function save(array $form, FormStateInterface $form_state) {
     $entity = $this->entity;
     $status = $entity->save();
 
-    if ($status) {
-      drupal_set_message($this->t('Saved the %label AuthorEntity.', array(
-        '%label' => $entity->label(),
-      )));
-    }
-    else {
-      drupal_set_message($this->t('The %label AuthorEntity was not saved.', array(
-        '%label' => $entity->label(),
-      )));
+    switch ($status) {
+      case SAVED_NEW:
+        drupal_set_message($this->t('Created the %label Author.', [
+          '%label' => $entity->label(),
+        ]));
+        break;
+
+      default:
+        drupal_set_message($this->t('Saved the %label Author.', [
+          '%label' => $entity->label(),
+        ]));
     }
     $form_state->setRedirect('entity.author_entity.edit_form', ['author_entity' => $entity->id()]);
   }
+
 }
