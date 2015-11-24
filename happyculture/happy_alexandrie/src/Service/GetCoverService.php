@@ -5,7 +5,7 @@
  * Contains \Drupal\happy_alexandrie\Service\GetCoverService.
  *
  * This code is used in the training exercise about services. It become useless
- * once the RemotePoster Plugin type is created.
+ * once the RemoteCover Plugin type is created.
  */
 
 namespace Drupal\happy_alexandrie\Service;

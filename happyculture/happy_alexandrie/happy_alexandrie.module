@@ -36,9 +36,9 @@ function happy_alexandrie_theme() {
     'template' => 'author_entity',
   );
 
-  $theme['happy_poster'] = array(
+  $theme['happy_cover'] = array(
     'variables' => array('cover_url' => '', 'work_title' => ''),
-    'template' => 'happy-poster',
+    'template' => 'happy-cover',
   );
 
   return $theme;

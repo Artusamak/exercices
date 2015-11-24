@@ -2,28 +2,28 @@
 
 /**
  * @file
- * Contains \Drupal\happy_alexandrie\Plugin\RemotePosterWS\GoogleRemotePoster.
+ * Contains \Drupal\happy_alexandrie\Plugin\RemoteCoverWS\GoogleRemoteCover.
  */
 
-namespace Drupal\happy_alexandrie\Plugin\RemotePosterWS;
+namespace Drupal\happy_alexandrie\Plugin\RemoteCoverWS;
 
 use Drupal\Component\Serialization\Json;
-use Drupal\happy_alexandrie\RemotePosterWSPluginBase;
+use Drupal\happy_alexandrie\RemoteCoverWSPluginBase;
 use GuzzleHttp\Client;
 use Drupal\Core\Url;
 
 /**
  * Fetch a cover from google api web service.
  *
- * @RemotePosterWS(
- *   id = "google_remote_poster",
+ * @RemoteCoverWS(
+ *   id = "google_remote_cover",
  *   name = "Book (from Google Books)"
  * )
  */
-class GoogleRemotePoster extends RemotePosterWSPluginBase {
+class GoogleRemoteCover extends RemoteCoverWSPluginBase {
 
   /**
-   * Constructs a \Drupal\happy_alexandrie\Plugin\RemotePosterWS\GoogleRemotePoster object.
+   * Constructs a \Drupal\happy_alexandrie\Plugin\RemoteCoverWS\GoogleRemoteCover object.
    *
    * @param array $configuration
    *   A configuration array containing information about the plugin instance.
@@ -41,7 +41,7 @@ class GoogleRemotePoster extends RemotePosterWSPluginBase {
    * build the webservice url with parameter, ready to be called.
    *
    * @var string
-   *   The parameter used by the service to get the url of a poster.
+   *   The parameter used by the service to get the url of a cover.
    */
   public function buildWebserviceUrl($param) {
     $options = array(
@@ -56,7 +56,7 @@ class GoogleRemotePoster extends RemotePosterWSPluginBase {
    * Call the web service with the good parameter to get the cover image url.
    *
    * @var string
-   *   The parameter used by the service to get the url of a poster.
+   *   The parameter used by the service to get the url of a cover.
    *
    * @return string
    *   An url of the image cover.

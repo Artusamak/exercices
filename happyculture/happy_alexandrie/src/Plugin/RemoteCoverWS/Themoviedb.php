@@ -2,24 +2,24 @@
 
 /**
  * @file
- * Contains \Drupal\happy_alexandrie\Plugin\RemotePosterWS\Themoviedb.
+ * Contains \Drupal\happy_alexandrie\Plugin\RemoteCoverWS\Themoviedb.
  */
 
-namespace Drupal\happy_alexandrie\Plugin\RemotePosterWS;
+namespace Drupal\happy_alexandrie\Plugin\RemoteCoverWS;
 
-use Drupal\happy_alexandrie\RemotePosterWSPluginBase;
+use Drupal\happy_alexandrie\RemoteCoverWSPluginBase;
 use GuzzleHttp\Client;
 use Drupal\Core\Url;
 
 /**
  * Fetch a cover from the movie db web service.
  *
- * @RemotePosterWS(
- *   id = "themoviedb_remote_poster",
+ * @RemoteCoverWS(
+ *   id = "themoviedb_remote_cover",
  *   name = "Movie (From IMDB)"
  * )
  */
-class Themoviedb extends RemotePosterWSPluginBase {
+class Themoviedb extends RemoteCoverWSPluginBase {
 
 
   /**
@@ -30,7 +30,7 @@ class Themoviedb extends RemotePosterWSPluginBase {
   protected $image_base_url;
 
   /**
-   * Constructs a \Drupal\happy_alexandrie\Plugin\RemotePosterWS\Themoviedb object.
+   * Constructs a \Drupal\happy_alexandrie\Plugin\RemoteCoverWS\Themoviedb object.
    *
    * @param array $configuration
    *   A configuration array containing information about the plugin instance.
@@ -48,7 +48,7 @@ class Themoviedb extends RemotePosterWSPluginBase {
    * build the webservice url with parameter, ready to be called.
    *
    * @var string
-   *   The parameter used by the service to get the url of a poster.
+   *   The parameter used by the service to get the url of a cover.
    */
   public function buildWebserviceUrl($param) {
     $options = array(
@@ -66,7 +66,7 @@ class Themoviedb extends RemotePosterWSPluginBase {
    * Call the web service with the good parameter to get the cover image url.
    *
    * @var string
-   *   The parameter used by the service to get the url of a poster. An isbn
+   *   The parameter used by the service to get the url of a cover. An isbn
    *   number most of the time.
    *
    * @return string

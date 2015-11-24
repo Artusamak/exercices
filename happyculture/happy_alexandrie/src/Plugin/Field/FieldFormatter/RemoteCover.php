@@ -2,7 +2,7 @@
 
 namespace Drupal\happy_alexandrie\Plugin\Field\FieldFormatter;
 
-use Drupal\happy_alexandrie\RemotePosterWSPluginManager;
+use Drupal\happy_alexandrie\RemoteCoverWSPluginManager;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
@@ -11,11 +11,11 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Plugin implementation of the 'remote_poster' formatter.
+ * Plugin implementation of the 'remote_cover' formatter.
  *
  * @FieldFormatter(
- *   id = "remote_poster",
- *   label = @Translation("Remote Poster"),
+ *   id = "remote_cover",
+ *   label = @Translation("Remote cover"),
  *   field_types = {
  *     "string",
  *     "isbn"
@@ -25,17 +25,17 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   }
  * )
  */
-class RemotePoster extends FormatterBase implements ContainerFactoryPluginInterface {
+class RemoteCover extends FormatterBase implements ContainerFactoryPluginInterface {
 
   /**
    * The get cover service.
    *
-   * @var \Drupal\happy_alexandrie\RemotePosterWSPluginManager
+   * @var \Drupal\happy_alexandrie\RemoteCoverWSPluginManager
    */
-  protected $remote_poster_plugin_manager;
+  protected $remote_cover_plugin_manager;
 
   /**
-   * Constructs a RemotePoster object.
+   * Constructs a RemoteCover object.
    *
    * @param string $plugin_id
    *   The plugin_id for the formatter.
@@ -51,13 +51,13 @@ class RemotePoster extends FormatterBase implements ContainerFactoryPluginInterf
    *   The view mode.
    * @param array $third_party_settings
    *   Any third party settings.
-   * @param \Drupal\happy_alexandrie\RemotePosterWSPluginManager $remote_poster_plugin_manager
-   *   The remove poster service plugin manager.
+   * @param \Drupal\happy_alexandrie\RemoteCoverWSPluginManager $remote_cover_plugin_manager
+   *   The remove cover service plugin manager.
    */
-  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, RemotePosterWSPluginManager $remote_poster_plugin_manager) {
+  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, RemoteCoverWSPluginManager $remote_cover_plugin_manager) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
 
-    $this->remote_poster_plugin_manager = $remote_poster_plugin_manager;
+    $this->remote_cover_plugin_manager = $remote_cover_plugin_manager;
   }
 
   /**
@@ -72,13 +72,13 @@ class RemotePoster extends FormatterBase implements ContainerFactoryPluginInterf
       $configuration['label'],
       $configuration['view_mode'],
       $configuration['third_party_settings'],
-      $container->get('plugin.manager.happy_alexandrie.remote_poster')
+      $container->get('plugin.manager.happy_alexandrie.remote_cover')
     );
   }
 
   public function getRemoteTypes() {
     $types = array();
-    foreach ($this->remote_poster_plugin_manager->getDefinitions() as $id => $plugin_data) {
+    foreach ($this->remote_cover_plugin_manager->getDefinitions() as $id => $plugin_data) {
       $types[$id] = $plugin_data['name'];
     }
     return $types;
@@ -114,7 +114,7 @@ class RemotePoster extends FormatterBase implements ContainerFactoryPluginInterf
    */
   public static function defaultSettings() {
     return array(
-      'cover_source' => 'openlibrary_remote_poster',
+      'cover_source' => 'openlibrary_remote_cover',
     ) + parent::defaultSettings();
   }
 
@@ -127,13 +127,13 @@ class RemotePoster extends FormatterBase implements ContainerFactoryPluginInterf
    */
   public function prepareView(array $entities_items) {
     $plugin_id = $this->getSetting('cover_source');
-    $RemotePosterWS = $this->remote_poster_plugin_manager->createInstance($plugin_id);
+    $RemoteCoverWS = $this->remote_cover_plugin_manager->createInstance($plugin_id);
     foreach ($entities_items as $items) {
       foreach ($items as $item) {
         $name = $item->mainPropertyName();
         if ($item->get($name)->getValue()) {
           // Get the name of the main property of the field.
-          $item->value = $RemotePosterWS->getCover($item->get($name)->getValue());
+          $item->value = $RemoteCoverWS->getCover($item->get($name)->getValue());
         }
       }
     }
@@ -158,7 +158,7 @@ class RemotePoster extends FormatterBase implements ContainerFactoryPluginInterf
       if ($item->value) {
         // Part calling a theme function.
         $elements[$delta] = array(
-          '#theme' => 'happy_poster',
+          '#theme' => 'happy_cover',
           '#cover_url' => $item->value,
           '#work_title' => $items->getEntity()->label(),
         );

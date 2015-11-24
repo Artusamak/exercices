@@ -2,26 +2,26 @@
 
 /**
  * @file
- * Contains \Drupal\happy_alexandrie\Plugin\RemotePosterWS\OpenLibrary.
+ * Contains \Drupal\happy_alexandrie\Plugin\RemoteCoverWS\OpenLibrary.
  */
 
-namespace Drupal\happy_alexandrie\Plugin\RemotePosterWS;
+namespace Drupal\happy_alexandrie\Plugin\RemoteCoverWS;
 
-use Drupal\happy_alexandrie\RemotePosterWSPluginBase;
+use Drupal\happy_alexandrie\RemoteCoverWSPluginBase;
 use Drupal\Core\Url;
 
 /**
  * Fetch a cover from the openlibrary api web service.
  *
- * @RemotePosterWS(
- *   id = "openlibrary_remote_poster",
+ * @RemoteCoverWS(
+ *   id = "openlibrary_remote_cover",
  *   name = "Book (from Open Library)"
  * )
  */
-class OpenLibrary extends RemotePosterWSPluginBase {
+class OpenLibrary extends RemoteCoverWSPluginBase {
 
   /**
-   * Constructs a \Drupal\happy_alexandrie\Plugin\RemotePosterWS\OpenLibrary object.
+   * Constructs a \Drupal\happy_alexandrie\Plugin\RemoteCoverWS\OpenLibrary object.
    *
    * @param array $configuration
    *   A configuration array containing information about the plugin instance.
@@ -39,7 +39,7 @@ class OpenLibrary extends RemotePosterWSPluginBase {
    * Build the webservice url with parameter, ready to be called.
    *
    * @var string
-   *   The parameter used by the service to get the url of a poster.
+   *   The parameter used by the service to get the url of a cover.
    */
   public function buildWebserviceUrl($param) {
     $this->webservice_url_with_parameters = Url::fromUri($this->base_webservice_url . '/' . $param . '-L.jpg');
@@ -49,7 +49,7 @@ class OpenLibrary extends RemotePosterWSPluginBase {
    * Call the web service with the good parameter to get the cover image url.
    *
    * @var string
-   *   The parameter used by the service to get the url of a poster.
+   *   The parameter used by the service to get the url of a cover.
    *
    * @return string
    *   An url of the image cover.

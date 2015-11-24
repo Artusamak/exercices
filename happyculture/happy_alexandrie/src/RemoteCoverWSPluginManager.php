@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\happy_alexandrie\RemotePosterWSPluginManager.
+ * Contains \Drupal\happy_alexandrie\RemoteCoverWSPluginManager.
  */
 
 namespace Drupal\happy_alexandrie;
@@ -12,16 +12,16 @@ use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;
 
 /**
- * Provides a plugin manager to get remote poster.
+ * Provides a plugin manager to get remote cover.
  *
- * @see \Drupal\happy_alexandrie\RemotePosterWSPluginBase
- * @see \Drupal\happy_alexandrie\RemotePosterWSInterface
+ * @see \Drupal\happy_alexandrie\RemoteCoverWSPluginBase
+ * @see \Drupal\happy_alexandrie\RemoteCoverWSInterface
  * @see plugin_api
  */
-class RemotePosterWSPluginManager extends DefaultPluginManager {
+class RemoteCoverWSPluginManager extends DefaultPluginManager {
 
   /**
-   * Constructs a new RemotePosterWSPluginManager.
+   * Constructs a new RemoteCoverWSPluginManager.
    *
    * @param \Traversable $namespaces
    *   An object that implements \Traversable which contains the root paths
@@ -33,15 +33,15 @@ class RemotePosterWSPluginManager extends DefaultPluginManager {
    */
   public function __construct(\Traversable $namespaces, CacheBackendInterface $cache_backend, ModuleHandlerInterface $module_handler) {
     parent::__construct(
-      'Plugin/RemotePosterWS',
+      'Plugin/RemoteCoverWS',
       $namespaces,
       $module_handler,
-      'Drupal\happy_alexandrie\RemotePosterWSInterface',
-      'Drupal\happy_alexandrie\Annotation\RemotePosterWS'
+      'Drupal\happy_alexandrie\RemoteCoverWSInterface',
+      'Drupal\happy_alexandrie\Annotation\RemoteCoverWS'
     );
 
-    $this->alterInfo('remote_poster_info');
-    $this->setCacheBackend($cache_backend, 'remote_poster_plugins');
+    $this->alterInfo('remote_cover_info');
+    $this->setCacheBackend($cache_backend, 'remote_cover_plugins');
   }
 
 }

@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\happy_alexandrie\RemotePosterWSPluginBase.
+ * Contains \Drupal\happy_alexandrie\RemoteCoverWSPluginBase.
  */
 
 namespace Drupal\happy_alexandrie;
@@ -10,11 +10,11 @@ namespace Drupal\happy_alexandrie;
 use Drupal\Core\Plugin\PluginBase;
 
 /**
- * Defines a base Remote Poster WebService implementation.
+ * Defines a base Remote Cover WebService implementation.
  *
  * @see plugin_api
  */
-abstract class RemotePosterWSPluginBase extends PluginBase implements RemotePosterWSInterface {
+abstract class RemoteCoverWSPluginBase extends PluginBase implements RemoteCoverWSInterface {
 
   /**
    * The webservice response.
@@ -41,7 +41,7 @@ abstract class RemotePosterWSPluginBase extends PluginBase implements RemotePost
    * build the webservice url with parameter, ready to be called.
    *
    * @var string
-   *   The parameter used by the service to get the url of a poster.
+   *   The parameter used by the service to get the url of a cover.
    */
   public function buildWebserviceUrl($param) {
     $this->webservice_url_with_parameters = $this->base_webservice_url . '/' . $param;
@@ -51,7 +51,7 @@ abstract class RemotePosterWSPluginBase extends PluginBase implements RemotePost
    * Call the web service with the good parameter to get the cover image url.
    *
    * @var string
-   *   The parameter used by the service to get the url of a poster.
+   *   The parameter used by the service to get the url of a cover.
    *
    * @return string
    *   An url of the image cover.
