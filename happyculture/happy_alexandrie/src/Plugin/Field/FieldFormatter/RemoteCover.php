@@ -160,7 +160,7 @@ class RemoteCover extends FormatterBase implements ContainerFactoryPluginInterfa
         $elements[$delta] = array(
           '#theme' => 'happy_cover',
           '#cover_url' => $item->value,
-          '#work_title' => $items->getEntity()->label(),
+          '#cover_title' => $items->getEntity()->label(),
         );
       }
     }
