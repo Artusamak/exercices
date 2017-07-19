@@ -5,6 +5,7 @@ namespace Drupal\isbn\Plugin\Field\FieldWidget;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
+use Symfony\Component\Validator\ConstraintViolationInterface;
 
 /**
  * Plugin implementation of the 'isbn' widget.
@@ -39,6 +40,15 @@ class IsbnWidget extends WidgetBase {
     ];
 
     return $element;
+  }
+
+  /**
+   * {@inheritdoc}
+   *
+   * Allows constraints related errors to highlight the concerned subfield.
+   */
+  public function errorElement(array $element, ConstraintViolationInterface $error, array $form, FormStateInterface $form_state) {
+    return $element[$error->arrayPropertyPath[0]];
   }
 
 }

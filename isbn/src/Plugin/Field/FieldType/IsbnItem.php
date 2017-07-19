@@ -25,11 +25,13 @@ class IsbnItem extends FieldItemBase {
    */
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
     $properties['isbn_10'] = DataDefinition::create('string')
-      ->setLabel(new TranslatableMarkup('ISBN 10'));
+      ->setLabel(new TranslatableMarkup('ISBN 10'))
+      ->addConstraint('Length', ['min' => 10, 'max' => 13]);
 
     $properties['isbn_13'] = DataDefinition::create('string')
       ->setLabel(new TranslatableMarkup('ISBN 13'))
-      ->setRequired(TRUE);
+      ->setRequired(TRUE)
+      ->addConstraint('Length', ['min' => 13, 'max' => 17]);
 
     return $properties;
   }
