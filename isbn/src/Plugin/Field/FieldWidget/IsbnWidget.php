@@ -25,6 +25,7 @@ class IsbnWidget extends WidgetBase {
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $element['#type'] = 'fieldset';
+    $element['#element_validate'][] = [$this, 'validateElement'];
 
     $element['isbn_10'] = [
       '#type' => 'textfield',
@@ -36,10 +37,40 @@ class IsbnWidget extends WidgetBase {
       '#type' => 'textfield',
       '#title' => $this->t('ISBN 13'),
       '#default_value' => isset($items[$delta]->isbn_13) ? $items[$delta]->isbn_13 : NULL,
-      '#required' => $element['#required'],
     ];
 
     return $element;
+  }
+
+  /**
+   * ISBN widget validator.
+   *
+   * Checks that at least one of the values is filled and, if it's the ISBN-10,
+   * builds the ISBN-13 value from it.
+   */
+  public function validateElement(array $element, FormStateInterface $form_state) {
+    if (empty($element['isbn_13']['#value'])) {
+      if (empty($element['isbn_10']['#value'])) {
+        if ($element['#required']) {
+          $form_state->setError($element, t('@name field is required.', ['@name' => $element['#title']]));
+        }
+      }
+      else {
+        // Converts ISBN-10 to ISBN-13.
+        // See https://en.wikipedia.org/wiki/International_Standard_Book_Number#ISBN-10_to_ISBN-13_conversion.
+        $new_isbn = "978" . preg_replace('/[^0-9]/', '', substr($element['isbn_10']['#value'], 0, -1));
+
+        $key = 0;
+        for ($i = 1 ; $i < 13 ; ++$i) {
+          $key += $new_isbn[$i-1] * (($i % 2 == 0) ? 3 : 1);
+        }
+        $key = (10 - ($key % 10)) % 10;
+
+        $new_isbn = $new_isbn . $key;
+
+        $form_state->setValueForElement($element['isbn_13'], $new_isbn);
+      }
+    }
   }
 
   /**
